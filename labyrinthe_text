@@ -1,7 +1,0 @@
-Tout d'abord je dois créer le labyrinthe en utilisant tkinter et le mettre dans un fichier à part. Ainsi je pourrais le modifier à ma guise.
-Ce labyrinthe doit faire 15 sprites de longueur et 15 en largeur.
-Je vais donc faire un labyrinthe carré qui fait 300 par 300
-
-Nous avons le gardien dénommé Murdoc dont je vais utiliser l'icone fourni dans le projet, il en est de même pour MacGyver, le personnage est fourni dans les explications du projet.
-Les objets que doit récupérer MAcGyver seront représentés par une clé, une aiguille et une montre.
-les objets, et personnages seront placés aléatoirement sur le labyrinthe.

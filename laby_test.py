@@ -18,7 +18,7 @@ class Labyrinthe:
         can = Canvas(fen, width= Labyrinthe.WIDTH_CASE * self.longueur, height= Labyrinthe.WIDTH_CASE * self.largeur, background="white")
         ton_image = PhotoImage(file="mur.gif")   
         j=0
-        with open("laby_test.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
+        with open("laby.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
             for line in f:# tu as ta ligne => line
                 for i in range(len(line)):# tu as le nombre de lettre de ta ligne len(line)
                     if line[i] == "m":  # tu as la lettre

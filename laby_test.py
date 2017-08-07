@@ -4,41 +4,46 @@ from tkinter import *
 
 class Labyrinthe:
     WIDTH_CASE= 25
-    ZONE_MUR= []
-    ZONE_LIBRE= []
-    EXIT=[]
-
-    def __init__(self, longueur, largeur):
-	    self.longueur= longueur
-	    self.largeur= largeur
         
-
-    def initialize_laby(self):
-        fen = Tk()
-        can = Canvas(fen, width= Labyrinthe.WIDTH_CASE * self.longueur, height= Labyrinthe.WIDTH_CASE * self.largeur, background="white")
-        ton_image = PhotoImage(file="mur.gif")   
+    
+    def __init__ (self):
+        self.zone_mur=[]
+        self.zone_libre=[]
+        self.depart=[]
+        self.victoire=[]
         j=0
-        with open("laby.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
+        with open("laby_test.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
             for line in f:# tu as ta ligne => line
                 for i in range(len(line)):# tu as le nombre de lettre de ta ligne len(line)
                     if line[i] == "m":  # tu as la lettre
-                        can.create_image(i * Labyrinthe.WIDTH_CASE, j * Labyrinthe.WIDTH_CASE, anchor=NW, image= ton_image) 
-                        mur=(i, j)
-                        self.ZONE_MUR.append(mur)   
+                        mur=(i,j)  
+                        self.zone_mur.append(mur) 
                     elif line[i] == "0":
                         vide=(i,j)
-                        self.ZONE_LIBRE.append(vide)
+                        self.zone_libre.append(vide)
                     elif line[i] == "E":
                         sortie=(i,j)
-                        self.EXIT.append(sortie)
+                        self.victoire.append(sortie)
+                    elif line[i]== "G":
+                        start=(i,j)
+                        self.depart.append(start)
                 j += 1
-        can.pack(padx=5, pady=5)
-        fen.mainloop()
-
+        
+    def zone(self):
+        x=int(input("veuillez entrer x"))
+        y=int(input("veuillez entrer y"))
+        if (x,y) in self.victoire:
+            print("c'est la sortie")
+        elif (x,y) in self.zone_mur:
+            print("c'est un mur")
+        elif (x,y) in self.zone_libre:
+            print("c'est libre")
+        elif (x,y) in self.depart:
+            print("c'est le depart")
+        else:
+            print ("ya rien")
 def main():
-    laby= Labyrinthe(15,15)
-    laby.initialize_laby()
-
+    laby=Labyrinthe()
+    laby.zone()
 main()
-
 

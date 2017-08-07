@@ -12,7 +12,7 @@ class Labyrinthe:
         self.depart=[]
         self.victoire=[]
         j=0
-        with open("laby_test.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
+        with open("laby.txt", 'r') as f:# tu vas lire le fichier ligne par ligne
             for line in f:# tu as ta ligne => line
                 for i in range(len(line)):# tu as le nombre de lettre de ta ligne len(line)
                     if line[i] == "m":  # tu as la lettre
@@ -30,18 +30,20 @@ class Labyrinthe:
                 j += 1
         
     def zone(self):
-        x=int(input("veuillez entrer x"))
-        y=int(input("veuillez entrer y"))
-        if (x,y) in self.victoire:
-            print("c'est la sortie")
-        elif (x,y) in self.zone_mur:
-            print("c'est un mur")
-        elif (x,y) in self.zone_libre:
-            print("c'est libre")
-        elif (x,y) in self.depart:
-            print("c'est le depart")
-        else:
-            print ("ya rien")
+        z=1
+        while z!=0:
+            x=int(input("veuillez entrer x"))
+            y=int(input("veuillez entrer y"))
+            if (x,y) in self.victoire:
+                print("c'est la sortie")
+            elif (x,y) in self.zone_mur:
+                print("c'est un mur")
+            elif (x,y) in self.zone_libre:
+                print("c'est libre")
+            elif (x,y) in self.depart:
+                print("c'est le depart")
+            else:
+                print ("ya rien")
 def main():
     laby=Labyrinthe()
     laby.zone()

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 from tkinter import *
+import random
 
 class Labyrinthe:
     WIDTH_CASE= 25
@@ -28,7 +29,12 @@ class Labyrinthe:
                         start=(i,j)
                         self.depart.append(start)
                 j += 1
-        
+        self.zone_objet()
+    def zone_objet(self):
+        self.objet_1= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
+        self.objet_2= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
+        self.objet_3= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
+
     def zone(self):
         z=1
         while z!=0:
@@ -42,10 +48,18 @@ class Labyrinthe:
                 print("c'est libre")
             elif (x,y) in self.depart:
                 print("c'est le depart")
+            elif (x,y) in self.objet_1:
+                print("objet 1")
+            elif (x,y) in self.objet_2:
+                print("objet 2")
+            elif (x,y) in self.objet_3:
+                print("Objet 3")
             else:
                 print ("ya rien")
 def main():
     laby=Labyrinthe()
     laby.zone()
-main()
+    print(self.objet_3)
+    
 
+main()

@@ -30,14 +30,35 @@ class Labyrinthe:
                         self.depart.append(start)
                 j += 1
         self.zone_objet()
+        
+
+
     def zone_objet(self):
         self.objet_1= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
         self.objet_2= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
         self.objet_3= self.zone_libre.pop(random.randint(0, len(self.zone_libre)-1))
 
+    def draw_laby(self,frame):
+        self.width_case= 25
+        self.sprite= 15
+        self.pic_wall= PhotoImage(file="mur.gif")
+        self.pic_object1= PhotoImage(file="box.gif")
+        self.pic_object2= PhotoImage(file="bottle.gif")
+        self.pic_object3= PhotoImage(file="coin.gif")
+        self.can= Canvas(frame,width= self.width_case * self.sprite, height= self.width_case * self.sprite, background= "white")
+        for z in self.zone_mur:
+            (x,y)= z
+            self.can.create_image(x * self.width_case, y * self.width_case, anchor= NW, image= self.pic_wall)
+            self.can.pack()
+        (x,y)=self.objet_1
+        self.can.create_image(x * self.width_case, y * self.width_case, anchor= NW, image= self.pic_object1)
+        (x,y)=self.objet_2
+        self.can.create_image(x * self.width_case, y * self.width_case, anchor= NW, image= self.pic_object2)
+        (x,y)=self.objet_3
+        self.can.create_image(x * self.width_case, y * self.width_case, anchor= NW, image= self.pic_object3)
+
+
     def zone(self):
-        z=1
-        while z!=0:
             x=int(input("veuillez entrer x"))
             y=int(input("veuillez entrer y"))
             if (x,y) in self.victoire:
@@ -58,8 +79,12 @@ class Labyrinthe:
                 print ("ya rien")
 def main():
     laby=Labyrinthe()
-    laby.zone()
-    print(self.objet_3)
+    fenetre= Tk()
+    laby.draw_laby(fenetre)
+    fenetre.mainloop()
+    
+
     
 
 main()
+

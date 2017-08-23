@@ -46,20 +46,27 @@ class Labyrinthe:
     def changing_character(self):
         x=int(input("veuillez entrer x"))
         y=int(input("veuillez entrer y"))
-        if x and y in range(15):
+        if 0<=x<=14 and 0<=y<=14:
             a, b = self.mg[0]
             print(self.laby_area[x,y])
-            self.laby_area[a,b]= "0"
-            self.mg[0]= (x,y)
-            self.laby_area[x,y]= "G"
-            self.draw_laby()
-            print(self.l)
+            if self.checking_coordinates(x,y)=="m":
+                print("sorry you cant walk through a wall")
+            else:
+                a,b= self.mg[0]
+                print(self.laby_area[x,y])
+            
+                self.laby_area[a,b]= "0"
+                self.mg[0]= (x,y)
+                self.laby_area[x,y]= "G"
+                self.draw_laby()
+                print(self.l)
         else:
             print("Vous êtes hors zone")
 
 
     def checking_coordinates(self,x, y):
         "function that checks coordinates"
+        return self.laby_area[x,y]
         
         
 

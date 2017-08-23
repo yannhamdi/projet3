@@ -47,11 +47,19 @@ class Labyrinthe:
         x=int(input("veuillez entrer x"))
         y=int(input("veuillez entrer y"))
         a, b = self.mg[0]
+        print(self.laby_area[x,y])
         self.laby_area[a,b]= "0"
         self.mg[0]= (x,y)
         self.laby_area[x,y]= "G"
         self.draw_laby()
         print(self.l)
+
+
+    def checking_coordinates(self,x, y):
+        "function that checks coordinates"
+        
+        
+
         
             
 

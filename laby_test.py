@@ -2,10 +2,7 @@
 # -*- coding: Utf-8 -*
 import random
 
-class Position:
-    def __init__(self,x,y):
-        coordinate= [x,y]
-        self.name= ""
+
         
 class Labyrinthe:
     WIDTH_CASE= 25
@@ -23,10 +20,10 @@ class Labyrinthe:
             for line in f:# for each line
                 for i in range(len(line)):
                     if line[i] == "m": 
-                        Position(i,j).name= "m" 
+                        
                         self.laby_area[i,j]= "m"  # we create our dictionnary including coordinates of the wall
                     elif line[i] == "0":
-                        Position(i,j).name= "0"
+                        
                         self.laby_area[i,j]= "0" # we have our coordinates of our pathway
                         possible_object= (i,j)
                         self.free_cases.append(possible_object)
@@ -40,11 +37,12 @@ class Labyrinthe:
 
                 j += 1
 
-
+        self.draw_laby()
            
             
 
-    def draw_laby(self):
+    def draw_laby(self, **laby_area):
+
         self.l=""
         for i in range(15):
             for j in range(15):
@@ -80,6 +78,89 @@ class Labyrinthe:
         self.laby_area[c,d]= "2"
         self.laby_area[e,f]= "3"
         self.draw_laby()
+
+
+    def changing_character(self):
+        
+       
+       
+        
+        new_x,new_y=0,0
+        self.object_pickep_up=[]
+        while self.ending_game(new_x,new_y)!= "true": #while the game is not terminated
+            a,b=self.mg[0]
+            event=input("veuillez entrer la direction") # we ask for the direction
+            if event == "haut":
+                self.move_up() # we call the up moving method
+                new_x, new_y= self.mg[0]
+                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
+                    self.mg[0]=a,b
+                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
+                    self.draw_laby()
+                else:
+                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
+                    self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
+                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
+                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
+                    self.draw_laby()    
+                        
+                        
+            self.ending_game(new_x,new_y)       
+            if event == "bas":
+                self.move_down() # we call the up moving method
+                new_x, new_y= self.mg[0]
+                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
+                    self.mg[0]=a,b
+                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
+                    self.draw_laby()
+                else:
+                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
+                    self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
+                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
+                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
+                    self.draw_laby()    
+                        
+                        
+            self.ending_game(new_x,new_y)
+            if event == "droite":
+                self.move_right() # we call the up moving method
+                new_x, new_y= self.mg[0]
+                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
+                    self.mg[0]=a,b
+                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
+                    self.draw_laby()
+                else:
+                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
+                    self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
+                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
+                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
+                    self.draw_laby()    
+                        
+                        
+            self.ending_game(new_x,new_y)   
+            if event == "gauche":
+                self.move_left() # we call the up moving method
+                new_x, new_y= self.mg[0]
+                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
+                    self.mg[0]=a,b
+                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
+                    self.draw_laby()
+                else:
+                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
+                    self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
+                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
+                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
+                    self.draw_laby()    
+                        
+                        
+            self.ending_game(new_x,new_y)                  
+
+
+    def checking_coordinates(self,x, y):
+        "function that checks coordinates"
+        return self.laby_area[x,y]
+    
+    
 class Character(Labyrinthe):
 
     def __init( self):
@@ -89,141 +170,52 @@ class Character(Labyrinthe):
         
 
 
-    def move_right(self):    
+    def move_right(self):  
         x,y= self.mg[0]
-        self.mg[0]= ((x+1), y)
+        if 0<=(x+1)<=14 and 0<=y<=14:  
+            self.mg[0]= ((x+1), y)
+        else:
+            print("you are out of the layout")
     
     def move_left(self):
         x,y= self.mg[0]
-        self.mg[0]= (x-1), y
+        if 0<=(x-1)<=14 and 0<=y<=14:
+            self.mg[0]= (x-1), y
+        else:
+            print("you are out of the layout")    
     
     def move_up(self):
-        x,y= self.mg[0]
-        self.mg[0]= x, (y+1)
+        x,y=self.mg[0]
+        if 0<=x<=14 and 0<=(y+1)<=14:
+            self.mg[0]= x, (y+1)
+        else:
+            print("you are out of the layout")    
 
     def move_down(self):
         x,y= self.mg[0]
-        self.mg[0]= x, (y-1)
+        if 0<=x<=14 and 0<=(y-1)<=14:
+            self.mg[0]= x, (y-1)
+            
+        else:
+            print("you are out of the layout")
 
+
+
+    def picking_up(self,x,y):
+        "function that collects object"
+        self.object_pickep_up=[]
+        if self.laby_area[x,y]== "1":
+            self.object_pickep_up.append("object1")
+        elif self.laby_area[x,y]=="2":
+            self.object_pickep_up.append("object2")
+        elif self.laby_area[x,y]== "3":
+            self.object_pickep_up.append("object3")
+    
 
     
 
 
 
-    def changing_character(self):
-        
-        a,b = self.mg[0]
-        self.object_pickep_up=[]
-        while self.ending_game(a,b)!= "true":
-            event=input("veuillez entrer la direction")
-            if event == "droite":
-                self.move_right()
-                new_x, new_y= self.mg[0]
-                if 0<=new_x<=14 and 0<=new_y<=14:
-                    if self.checking_coordinates(new_x, new_y)=="m":
-                        print("sorry you cant walk through a wall")
-                        self.mg[0]=a,b 
-                    else:
-                        self.mg[0]=new_x, new_y
-                        if self.laby_area[new_x, new_y]=="1":
-                            self.object_pickep_up.append("object1")
-                            print("congrats, you have found object1")
-                        elif self.laby_area[new_x, new_y]=="2":
-                            self.object_pickep_up.append("object2")
-                            print("congrats! You have found object 2")
-                        elif self.laby_area[new_x,new_y]=="3":
-                            self.object_pickep_up.append("object3") 
-                            print("congrats! You have found object3")       
-            
-                        self.laby_area[a,b]= "0"
-                        self.mg[0]= (new_x, new_y)
-                        self.laby_area[new_x, new_y]= "G"
-                        self.draw_laby()
-                        
-                        if self.ending_game(new_x, new_y) == "true":
-                            break
-            elif event == "gauche":
-                self.move_left()
-                new_x, new_y= self.mg[0]
-                if 0<=new_x<=14 and 0<=new_y<=14:
-                    if self.checking_coordinates(new_x, new_y)=="m":
-                        print("sorry you cant walk through a wall")
-                        self.mg[0]=a,b 
-                    else:
-                        self.mg[0]=new_x, new_y
-                        print(self.l)
-                        if self.laby_area[new_x, new_y]=="1":
-                            self.object_pickep_up.append("object1")
-                        elif self.laby_area[new_x, new_y]=="2":
-                            self.object_pickep_up.append("object2")
-                        elif self.laby_area[new_x,new_y]=="3":
-                            self.object_pickep_up.append("object3")        
-            
-                        self.laby_area[a,b]= "0"
-                        self.mg[0]= (new_x, new_y)
-                        self.laby_area[new_x, new_y]= "G"
-                        self.draw_laby()
-                        
-                        if self.ending_game(new_x, new_y) == "true":
-                            break
-            elif event == "haut":
-                    self.move_up()
-                    new_x, new_y= self.mg[0]
-                    if 0<=new_x<=14 and 0<=new_y<=14:
-                        if self.checking_coordinates(new_x, new_y)=="m":
-                            print("sorry you cant walk through a wall")
-                            self.mg[0]=a,b 
-                        else:
-                            self.mg[0]=new_x, new_y
-                            if self.laby_area[new_x, new_y]=="1":
-                                self.object_pickep_up.append("object1")
-                            elif self.laby_area[new_x, new_y]=="2":
-                                self.object_pickep_up.append("object2")
-                            elif self.laby_area[new_x,new_y]=="3":
-                                self.object_pickep_up.append("object3")        
-            
-                            self.laby_area[a,b]= "0"
-                            self.mg[0]= (new_x, new_y)
-                            self.laby_area[new_x, new_y]= "G"
-                            self.draw_laby()
-                            
-                            if self.ending_game(new_x, new_y) == "true":
-                                break
-                 
-            elif event == "bas":
-                    self.move_down()
-                    new_x, new_y= self.mg[0]
-                    if 0<=new_x<=14 and 0<=new_y<=14:
-                        if self.checking_coordinates(new_x, new_y)=="m":
-                            print("sorry you cant walk through a wall")
-                            self.mg[0]=a,b 
-                        else:
-                            self.mg[0]=new_x, new_y
-
-                        
-                            if self.laby_area[new_x, new_y]=="1":
-                                self.object_pickep_up.append("object1")
-                            elif self.laby_area[new_x, new_y]=="2":
-                                self.object_pickep_up.append("object2")
-                            elif self.laby_area[new_x,new_y]=="3":
-                                self.object_pickep_up.append("object3")        
-            
-                            self.laby_area[a,b]= "0"
-                            self.mg[0]= (new_x, new_y)
-                            self.laby_area[new_x,new_y]= "G"
-                            self.draw_laby()
-                            print(self.l)
-                            if self.ending_game(new_x, new_y) == "true":
-                                print("you have won")
-                                break              
-                    else:
-                        print("Vous êtes hors zone")
-               
-
-
-    def checking_coordinates(self,x, y):
-        "function that checks coordinates"
-        return self.laby_area[x,y]
         
         
     
@@ -252,13 +244,14 @@ class Character(Labyrinthe):
 
 
 def main():
+    
     laby=Labyrinthe()
     laby.draw_laby()
     print(laby.l)
     laby.placing_object()
-
     macgyver= Character()
     macgyver.changing_character()
+
     
 
           

@@ -81,12 +81,13 @@ class Labyrinthe:
 
 
     def changing_character(self):
+        "function that ask direction and place gyver to the new position"
         
        
        
-        
+        self.placing_object()
         new_x,new_y=0,0
-        self.object_pickep_up=[]
+        
         while self.ending_game(new_x,new_y)!= "true": #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
@@ -153,7 +154,9 @@ class Labyrinthe:
                     self.draw_laby()    
                         
                         
-            self.ending_game(new_x,new_y)                  
+            self.ending_game(new_x,new_y)  
+
+                    
 
 
     def checking_coordinates(self,x, y):
@@ -171,6 +174,7 @@ class Character(Labyrinthe):
 
 
     def move_right(self):  
+        "function that move gyver to the right and check if the movement is in the layout"
         x,y= self.mg[0]
         if 0<=(x+1)<=14 and 0<=y<=14:  
             self.mg[0]= ((x+1), y)
@@ -178,6 +182,7 @@ class Character(Labyrinthe):
             print("you are out of the layout")
     
     def move_left(self):
+        "function that move gyver to the left and check if the movement is in the layout"
         x,y= self.mg[0]
         if 0<=(x-1)<=14 and 0<=y<=14:
             self.mg[0]= (x-1), y
@@ -185,6 +190,7 @@ class Character(Labyrinthe):
             print("you are out of the layout")    
     
     def move_up(self):
+        "function that move up gyver and check if the movement is in the layout"
         x,y=self.mg[0]
         if 0<=x<=14 and 0<=(y+1)<=14:
             self.mg[0]= x, (y+1)
@@ -192,6 +198,7 @@ class Character(Labyrinthe):
             print("you are out of the layout")    
 
     def move_down(self):
+        "function that move down gyver and check if the movement is in the layout"
         x,y= self.mg[0]
         if 0<=x<=14 and 0<=(y-1)<=14:
             self.mg[0]= x, (y-1)
@@ -247,7 +254,6 @@ def main():
     
     laby=Labyrinthe()
     laby.draw_laby()
-    print(laby.l)
     laby.placing_object()
     macgyver= Character()
     macgyver.changing_character()

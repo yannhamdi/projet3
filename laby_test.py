@@ -155,7 +155,7 @@ class Labyrinthe:
                         
                         
             self.ending_game(new_x,new_y)  
-
+        print("you have won")
                     
 
 

@@ -89,7 +89,7 @@ class Labyrinthe:
         self.placing_object()
         new_x,new_y=0,0
         
-        while self.ending_game(new_x,new_y)!= "true": #while the game is not terminated
+        while self.ending_game(new_x,new_y)== "false": #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
@@ -107,7 +107,7 @@ class Labyrinthe:
                     self.draw_laby()    
                         
                         
-            self.ending_game(new_x,new_y)       
+                    print(self.ending_game(new_x,new_y))       
             if event == "bas":
                 self.move_down() # we call the up moving method
                 new_x, new_y= self.mg[0]
@@ -120,10 +120,11 @@ class Labyrinthe:
                     self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
                     self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
                     self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()    
+                    self.draw_laby()
                         
                         
-            self.ending_game(new_x,new_y)
+                        
+                    print(self.ending_game(new_x,new_y))
             if event == "droite":
                 self.move_right() # we call the up moving method
                 new_x, new_y= self.mg[0]
@@ -136,10 +137,11 @@ class Labyrinthe:
                     self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
                     self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
                     self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()    
+                    self.draw_laby() 
+                     
                         
                         
-            self.ending_game(new_x,new_y)   
+                    print(self.ending_game(new_x,new_y))   
             if event == "gauche":
                 self.move_left() # we call the up moving method
                 new_x, new_y= self.mg[0]
@@ -152,10 +154,11 @@ class Labyrinthe:
                     self.picking_up(new_x,new_y) #we check if there is an object in new mac gyver position
                     self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
                     self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()    
+                    self.draw_laby()   
+                    
                         
                         
-            self.ending_game(new_x,new_y)  
+                    print(self.ending_game(new_x,new_y))  
         print("you have won")
                     
 
@@ -214,10 +217,13 @@ class Character(Labyrinthe):
         self.object_pickep_up=[]
         if self.laby_area[x,y]== "1":
             self.object_pickep_up.append("object1")
+            print("Great! you have found object1")
         elif self.laby_area[x,y]=="2":
             self.object_pickep_up.append("object2")
+            print("Great! you have found object2")
         elif self.laby_area[x,y]== "3":
             self.object_pickep_up.append("object3")
+            print("Great! you have found object3")
     
 
     
@@ -234,7 +240,8 @@ class Character(Labyrinthe):
         "function that checks if Mac gyver has won the game"
         if self.checking_coordinates(x,y)== "E" and len(self.object_pickep_up)==3:
             return "true"  
-
+        else:
+            return "false"
 
 
             

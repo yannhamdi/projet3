@@ -250,14 +250,8 @@ class Character(Labyrinthe):
         "function that checks if Mac gyver has won the game"
         
         if self.mg[0]== self.victory and len(bag)==3:
-            print(self.mg[0])
-            print(len(bag))
-            print(self.victory)
             return True
         else:
-            print(self.mg[0])
-            print(len(bag))
-            print(self.victory)
             return False
 
 

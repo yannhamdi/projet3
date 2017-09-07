@@ -188,12 +188,13 @@ class Labyrinthe:
                     self.draw_laby()   
                     self.ending_game(self.object_pickep_up)   
                     print(self.ending_game(self.object_pickep_up))
-            if self.ending_game(self.object_pickep_up)== True:
+            if self.mg[0]== self.victory and len(self.object_pickep_up)<3:
                 break
                          
-        print("you have won")
-                    
-
+        if self.ending_game(self.object_pickep_up)== True:
+            print("you have won")
+        else:
+        	print("you have lost")
 
     def checking_coordinates(self,x, y):
         "function that checks coordinates"

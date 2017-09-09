@@ -72,6 +72,7 @@ class Labyrinthe:
         self.laby_area[a,b]= "1"
         self.laby_area[c,d]= "2"
         self.laby_area[e,f]= "3"
+        print("\n")
         self.draw_laby()
 
     def changing_character(self):

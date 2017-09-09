@@ -32,9 +32,9 @@ class Labyrinthe:
                     elif line[i]== "G":
                         self.laby_area[i,j]= "G"
                         gyver=(i,j)
-                        self.mg.append(gyver)
+                        self.mg.append(gyver) #we are saving Mac gyver first position
                 j += 1
-        self.draw_laby()                  
+        self.draw_laby() # we print on the consol the labyrinthe           
 
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
@@ -85,7 +85,7 @@ class Labyrinthe:
         
     def checking_coordinates(self,x, y):
         "function that checks coordinates"
-        return self.laby_area[x,y]       
+        return self.laby_area[x,y]  # it returns what's in coordinates x,y 
 
     def picking_up(self,new_x, new_y):
         "function that picks up objects"
@@ -101,12 +101,10 @@ class Labyrinthe:
    
     def ending_game(self):
         "function that checks if Mac gyver has won the game"
-        if self.mg[0]== self.victory and len(self.object_picked_up)==3:
-            print(self.object_picked_up)
-            return True
+        if self.mg[0]== self.victory and len(self.object_picked_up)==3:   # gyver is at the exit and he has found the 3 objects
+            return True # the function returns True
         else:
-            print(self.object_picked_up)
-            return False
+            return False # otherwise the function returns false
     
 class Character():
 
@@ -119,7 +117,7 @@ class Character():
         "function that move gyver to the right and check if the movement is in the layout"
         x,y= self.mg[0]
         if 0<=x<=14 and 0<=(y+1)<=14: # we check if the movement stays in the layout
-            self.mg[0]= x, (y+1)
+            self.mg[0]= x, (y+1) 
         else:
             print("you are out of the layout")    
         
@@ -154,7 +152,7 @@ class Position():
         
     def testing_position(self, first_x, first_y, new_x, new_y):
         "we change coordinates if possible"
-        if self.checking_coordinates(new_x,new_y)=="m":
+        if self.checking_coordinates(new_x,new_y)=="m":   # we check if there is a wall at the new possible position for Mac Gyver
             self.mg[0]= first_x, first_y
             print("Sorry, you can't walk through a wall")
         else:
@@ -162,10 +160,8 @@ class Position():
             self.laby_area[first_x, first_y]= "0"
             Labyrinthe.picking_up(self,new_x, new_y)
             self.laby_area[new_x, new_y]="G"
-            
-            print(self.object_picked_up)
             self.draw_laby()
-            self.ending_game()    
+            self.ending_game()  # we test if the player finishes the game  
 
     
 def main():

@@ -2,6 +2,7 @@
 # -*- coding: Utf-8 -*
 import random
 
+import sys
 
         
 class Labyrinthe:
@@ -48,26 +49,15 @@ class Labyrinthe:
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
 
-        self.l=""
         for i in range(15):
             for j in range(15):
-                if self.laby_area[i,j]== "m":
-                    self.l+="m"
-                elif self.laby_area[i,j]=="0":
-                    self.l+="0"
-                elif self.laby_area[i,j]=="E":
-                    self.l+="E"
-                elif self.laby_area[i,j]=="G":
-                    self.l+="G"
-                elif self.laby_area[i,j]== "1":
-                    self.l+="1"
-                elif self.laby_area[i,j]== "2":
-                    self.l+="2"
-                elif self.laby_area[i,j]== "3":
-                    self.l+="3"    
+                sys.stdout.write(self.laby_area[i,j])
+
+            sys.stdout.write("\n")    
                 
-            self.l+="\n"
-        print(self.l)    
+                
+            
+            
 
 
 

@@ -36,21 +36,13 @@ class Labyrinthe:
                 j += 1
         self.draw_laby()                  
 
-                        
-               
-
-       
-
-       
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
-
         for i in range(15):
             for j in range(15):
                 sys.stdout.write(self.laby_area[i,j]) # we draw the labyrinth in the consol
-
-            sys.stdout.write("\n")    
-           
+            sys.stdout.write("\n")  
+        
     def placing_object(self):
         "function that places the 3 objects"
         self.object1= self.free_cases.pop(random.randint(0, len(self.free_cases)-1))
@@ -67,9 +59,7 @@ class Labyrinthe:
                 
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
-        
         while self.ending_game()== False: #while the game is not terminated
-            
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
@@ -88,18 +78,15 @@ class Labyrinthe:
                 
             if self.mg[0]== self.victory and len(self.object_picked_up)<3: # line that defines if we loose the game
                 break
-                         
         if self.ending_game()== True:
             print("you have won")
         else:
-        	print("you have lost")              
-            
-            
-
+            print("you have lost")                      
+        
     def checking_coordinates(self,x, y):
         "function that checks coordinates"
-        return self.laby_area[x,y]
-   
+        return self.laby_area[x,y]       
+
     def picking_up(self,new_x, new_y):
         "function that picks up objects"
         if self.checking_coordinates(new_x, new_y)== "1":
@@ -111,10 +98,9 @@ class Labyrinthe:
         elif self.checking_coordinates(new_x, new_y)== "3":
              self.object_picked_up.append("object3")
              print("Great! You found object 3")
-
+   
     def ending_game(self):
         "function that checks if Mac gyver has won the game"
-        
         if self.mg[0]== self.victory and len(self.object_picked_up)==3:
             print(self.object_picked_up)
             return True
@@ -122,7 +108,6 @@ class Labyrinthe:
             print(self.object_picked_up)
             return False
     
-   
 class Character():
 
     
@@ -200,20 +185,36 @@ main()
     
         
 
+        
+
+    
+    
+   
 
   
    
 
     
 
+                              
+    
    
 
+                        
+               
+
+       
+
+  
+          
    
 
     
 
-   
+            
+    
 
+   
 
 
 

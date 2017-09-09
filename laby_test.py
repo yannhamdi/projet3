@@ -17,6 +17,7 @@ class Labyrinthe:
         self.free_cases =[]
         self.object_picked_up=[]
         Character()
+        Position()
        
 
         j=0
@@ -79,72 +80,23 @@ class Labyrinthe:
         "function that ask direction and place gyver to the new position"
         
         while self.ending_game()== False: #while the game is not terminated
-           
+            
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
                 Character.move_up(self) # we call the up moving method
                 new_x, new_y= self.mg[0] #new coordinates of gyver under the condition no wall
-                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
-                    self.mg[0]=a,b
-                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
-                    self.draw_laby()
-                else:
-                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
-                    Character.picking_up(self,new_x,new_y)
-                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
-                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby() 
-                    self.ending_game()
-                        
-                         
-            if event == "bas":
+            elif event == "bas":
                 Character.move_down(self) # we call the up moving method
                 new_x, new_y= self.mg[0]
-                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
-                    self.mg[0]=a,b
-                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
-                    self.draw_laby()
-                else:
-                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
-                    Character.picking_up(self,new_x, new_y) 
-                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
-                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()
-                    self.ending_game()   
-                      
-                    
-            if event == "droite":
+            elif event == "droite":
                 Character.move_right(self) # we call the up moving method
                 new_x, new_y= self.mg[0]
-                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
-                    self.mg[0]=a,b
-                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
-                    self.draw_laby()
-                else:
-                    self.mg[0]=new_x, new_y # if it is not a wall we move forward to the new coordinates
-                    Character.picking_up(self,new_x, new_y) #we check if there is an object in new mac gyver position
-                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
-                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()
-                    self.ending_game()   
-                    
-                        
-                      
-            if event == "gauche":
+            elif event == "gauche":
                 Character.move_left(self) # we call the up moving method
                 new_x, new_y= self.mg[0]
-                if self.checking_coordinates(new_x, new_y)=="m": # we check if it is not a wall
-                    self.mg[0]=a,b
-                    print("sorry you cant walk through a wall") # we go back to the former position of macgyver
-                    self.draw_laby()
-                else:
-                    self.mg[0]=new_x, new_y 
-                    Character.picking_up(self,new_x,new_y)
-                    self.laby_area[new_x, new_y]= "G" # we change our dictionnary with the new mac gyver position
-                    self.laby_area[a,b]="0" #we change G by the pathway in order to draw the new labyrinthe
-                    self.draw_laby()   
-                    self.ending_game()
+            Position.testing_position(self,a,b,new_x,new_y)     
+                
             if self.mg[0]== self.victory and len(self.object_picked_up)<3:
                 break
                          
@@ -156,6 +108,18 @@ class Labyrinthe:
     def checking_coordinates(self,x, y):
         "function that checks coordinates"
         return self.laby_area[x,y]
+   
+    def picking_up(self,new_x, new_y):
+        "function that picks up objects"
+        if self.checking_coordinates(new_x, new_y)== "1":
+            self.object_picked_up.append("object1")
+            print("Great! You found object1")
+        elif self.checking_coordinates(new_x, new_y)== "2":
+             self.object_picked_up.append("object2")
+             print("Great! You found object 2")
+        elif self.checking_coordinates(new_x, new_y)== "3":
+             self.object_picked_up.append("object3")
+             print("Great! You found object 3")
 
 
     def ending_game(self):
@@ -170,7 +134,7 @@ class Labyrinthe:
     
 class Character():
     
-    def __init( self):
+    def __init(self):
         self.x=x
         self.y=y
         
@@ -217,22 +181,33 @@ class Character():
             print("you are out of the layout")       
     
 
-    def picking_up(self,new_x, new_y):
-        "function that picks up objects"
-        if self.checking_coordinates(new_x, new_y)== "1":
-            self.object_picked_up.append("object1")
-            print("Great! You found object1")
-        elif self.checking_coordinates(new_x, new_y)== "2":
-             self.object_picked_up.append("object2")
-             print("Great! You found object 2")
-        elif self.checking_coordinates(new_x, new_y)== "3":
-             self.object_picked_up.append("object3")
-             print("Great! You found object 3")
+    
 
    
 
+class Position():
+    def __init__(self):
 
-            
+        Character()
+
+
+    def testing_position(self, first_x, first_y, new_x, new_y):
+        "we change coordinates if possible"
+        if self.checking_coordinates(new_x,new_y)=="m":
+            self.mg[0]= first_x, first_y
+            print("Sorry, you can't walk through a wall")
+        else:
+            self.mg[0]= new_x, new_y
+            self.laby_area[first_x, first_y]= "0"
+            self.laby_area[new_x, new_y]="G"
+            Labyrinthe.picking_up(self,new_x, new_y)
+            print(self.object_picked_up)
+            self.draw_laby()
+            self.ending_game()
+
+
+    
+
 
 
 
@@ -250,6 +225,7 @@ def main():
     
     laby=Labyrinthe()
     laby.placing_object()
+    position=Position()
     macgyver= Character()
     
     laby.changing_character()

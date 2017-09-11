@@ -4,6 +4,10 @@ import random
 
 import sys
 
+import pygame
+from pygame.locals import *
+
+pygame.init()
         
 class Labyrinthe:
     WIDTH_CASE= 25
@@ -14,6 +18,9 @@ class Labyrinthe:
         self.mg=[] # mac gyver position
         self.free_cases =[]
         self.object_picked_up=[]
+        self.wall= pygame.image.load("mur.gif")
+        self.pic_object1= pygame.image.load("bottle.gif")
+        self.pic_gyver= pygame.image.load("gyver.png").convert_alpha()
         Character()
         Position()
         j=0
@@ -35,7 +42,7 @@ class Labyrinthe:
                         self.mg.append(gyver) #we are saving Mac gyver first position
                 j += 1
         self.draw_laby() # we print on the consol the labyrinthe           
-
+        self.placing_object()
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
         for i in range(15):
@@ -165,11 +172,41 @@ class Position():
 
     
 def main():
+    
+    macgyver=Character()
+    pygame.init()
+    fenetre= pygame.display.set_mode((Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE, Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE ))
     laby=Labyrinthe()
+    fond= pygame.image.load("fond.jpg").convert()
+    fenetre.blit(fond,(0,0))
+    for i in range(0,14,1):
+        for j in range(0,14,1):
+            if laby.checking_coordinates(i,j)== "m":
+                x= i*25
+                y= j*25
+                fenetre.blit(laby.wall, (x,y))
+            elif laby.checking_coordinates(i,j)== "1":
+                x= i*25
+                y= j*25
+                fenetre.blit(laby.pic_object1, (x,y))
+            elif laby.checking_coordinates(i,j)== "G":
+                x= i*25
+                j= j*25
+                fenetre.blit(laby.pic_gyver, (x,y))
+
+        
+    pygame.display.flip()
+    continuer=1
+    while continuer:
+        continue
+    
+
     laby.placing_object()
     position=Position()
     macgyver= Character()
     laby.changing_character()
+
+    
 main()
     
         

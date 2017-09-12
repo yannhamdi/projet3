@@ -208,11 +208,28 @@ def main():
             	x= i* Labyrinthe.WIDTH_CASE
             	y= j * Labyrinthe.WIDTH_CASE
             	fenetre.blit(laby.bad_guy, (x,y))
+            elif laby.checking_coordinates(i,j)== "3":
+            	x= i* Labyrinthe.WIDTH_CASE
+            	y= j* Labyrinthe.WIDTH_CASE
+            	fenetre.blit(laby.pic_object3, (x,y))
 
         
     pygame.display.flip()
     continuer=1
     while continuer:
+        pygame.time.Clock().tick(30)
+        for event in pygame.event.get():
+            if event.type==QUIT:
+                continuer = 0
+            elif event.type== K_RIGHT:
+                macgyver.move_right()
+            elif event.type == K_LEFT:
+                macgyver.move_left()
+            elif event.type== K_UP:
+                macgyver.move_up()
+            elif event.type== K_DOWN:
+                macgyver.move_down()
+
         continue
     
 

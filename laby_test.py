@@ -18,9 +18,13 @@ class Labyrinthe:
         self.mg=[] # mac gyver position
         self.free_cases =[]
         self.object_picked_up=[]
-        self.wall= pygame.image.load("mur.gif")
-        self.pic_object1= pygame.image.load("bottle.gif")
+        self.wall= pygame.image.load("mur.gif").convert()
+        self.pic_object1= pygame.image.load("bottle.gif").convert()
         self.pic_gyver= pygame.image.load("gyver.png").convert_alpha()
+        self.bad_guy= pygame.image.load("bad.png").convert_alpha()
+        self.pic_object2= pygame.image.load("box.gif").convert()
+        self.pic_object3= pygame.image.load("coin.gif").convert()
+        
         Character()
         Position()
         j=0
@@ -49,6 +53,7 @@ class Labyrinthe:
             for j in range(15):
                 sys.stdout.write(self.laby_area[i,j]) # we draw the labyrinth in the consol
             sys.stdout.write("\n")  
+
         
     def placing_object(self):
         "function that places the 3 objects"
@@ -117,6 +122,7 @@ class Character():
 
     
     def __init(self):
+        
         self.x=x
         self.y=y
         
@@ -173,14 +179,15 @@ class Position():
     
 def main():
     
-    macgyver=Character()
+    
     pygame.init()
     fenetre= pygame.display.set_mode((Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE, Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE ))
     laby=Labyrinthe()
+    macgyver=Character()
     fond= pygame.image.load("fond.jpg").convert()
     fenetre.blit(fond,(0,0))
-    for i in range(0,14,1):
-        for j in range(0,14,1):
+    for i in range(15):
+        for j in range(15):
             if laby.checking_coordinates(i,j)== "m":
                 x= i*25
                 y= j*25
@@ -191,8 +198,16 @@ def main():
                 fenetre.blit(laby.pic_object1, (x,y))
             elif laby.checking_coordinates(i,j)== "G":
                 x= i*25
-                j= j*25
+                y= j*25
                 fenetre.blit(laby.pic_gyver, (x,y))
+            elif laby.checking_coordinates(i,j)== "2":
+            	x= i*25
+            	y= j*25
+            	fenetre.blit(laby.pic_object2, (x, y))
+            elif laby.checking_coordinates(i,j)== "E":
+            	x= i* Labyrinthe.WIDTH_CASE
+            	y= j * Labyrinthe.WIDTH_CASE
+            	fenetre.blit(laby.bad_guy, (x,y))
 
         
     pygame.display.flip()

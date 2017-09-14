@@ -10,7 +10,7 @@ from pygame.locals import *
 pygame.init()
         
 class Labyrinthe:
-    WIDTH_CASE= 25
+    WIDTH_CASE= 40
     SPRITE= 15
     def __init__ (self):
         "We initialize our labyrinthe"
@@ -189,20 +189,20 @@ def main():
     for i in range(15):
         for j in range(15):
             if laby.checking_coordinates(i,j)== "m":
-                x= i*25
-                y= j*25
+                x= i*40
+                y= j*40
                 fenetre.blit(laby.wall, (x,y))
             elif laby.checking_coordinates(i,j)== "1":
-                x= i*25
-                y= j*25
+                x= i*40
+                y= j*40
                 fenetre.blit(laby.pic_object1, (x,y))
             elif laby.checking_coordinates(i,j)== "G":
-                x= i*25
-                y= j*25
+                x= i*40
+                y= j*40
                 fenetre.blit(laby.pic_gyver, (x,y))
             elif laby.checking_coordinates(i,j)== "2":
-            	x= i*25
-            	y= j*25
+            	x= i*40
+            	y= j*40
             	fenetre.blit(laby.pic_object2, (x, y))
             elif laby.checking_coordinates(i,j)== "E":
             	x= i* Labyrinthe.WIDTH_CASE

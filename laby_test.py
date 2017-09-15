@@ -212,7 +212,7 @@ def main():
             	x= i* Labyrinthe.WIDTH_CASE
             	y= j* Labyrinthe.WIDTH_CASE
             	fenetre.blit(laby.pic_object3, (x,y))
-
+            
         
     pygame.display.flip()
     continuer=1

@@ -169,31 +169,28 @@ class Position(Labyrinthe):
     def checking_layout(self, x,y):
         "function thats checks if macgyver is moving inside the layout"
         x,y = self.mg[0]
-        if x in range(15) and y in range(15):
+        if 0<=x<=14 and 0<=y<=14:
             return True
         else:
             return False
             
 
     def testing_position(self, first_x, first_y, new_x, new_y):
-        "we change coordinates if possible"
-        
-        if self.checking_layout(new_x,new_y)== False:
-            print("Sorry, you are out of the layout")
-            self.mg[0]= first_x, first_y
-            
-        else:
-            if self.checking_coordinates(new_x, new_y)=="m":
+        if self.checking_layout(new_x, new_y)== False:
                 self.mg[0]= first_x, first_y
-                print("Sorry, you cant walk through a wall")
-            else:
-                self.mg[0]= new_x, new_y
-                self.laby_area[first_x, first_y]= "0"
-                self.laby_area[new_x, new_y]="G"
-                self.picking_up(new_x, new_y)
-                print(self.object_picked_up)
-                self.draw_laby()
-                self.ending_game()
+                print("Sorry, you are out of the layout")
+        elif self.checking_coordinates(new_x, new_y)== "m":
+            self.mg[0]= first_x, first_y
+            print("sorry you cant walk through a wall")
+        else:
+            self.mg[0]= new_x, new_y
+            self.laby_area[first_x, first_y]= "0"
+            self.laby_area[new_x, new_y]="G"
+            self.picking_up(new_x, new_y)
+            print(self.object_picked_up)
+            self.draw_laby()
+            self.ending_game()
+
 
 
     

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+
 # -*- coding: Utf-8 -*
 import random
 
@@ -76,26 +76,50 @@ class Labyrinthe:
         print("\n")
         self.draw_laby()
 
-    def changing_character(self,event):
+    def changing_character(self):
         "function that ask direction and place gyver to the new position"
+        position=Position()
         self.placing_object()
-        if event == "haut":
-            self.move_up() # we call the up moving method
-            self.new_x, self.new_y= self.mg[0] #new coordinates of gyver under the condition no wall
-        elif event == "bas":
-            self.move_down() # we call the up moving method
-            self.new_x, self.new_y= self.mg[0]
-        elif event == "droite":
-            self.move_right() # we call the up moving method
-            self.new_x, self.new_y= self.mg[0]
-        elif event == "gauche":
-            self.move_left() # we call the up moving method
-            self.new_x, self.new_y= self.mg[0]
+        while self.ending_game()== False: #while the game is not terminated
+            
+            a,b=self.mg[0]
+            event=input("veuillez entrer la direction") # we ask for the direction
+            if event == "haut":
+                self.move_up() # we call the up moving method
+                new_x, new_y= self.mg[0] #new coordinates of gyver under the condition no wall
+            elif event == "bas":
+                self.move_down() # we call the up moving method
+                new_x, new_y= self.mg[0]
+            elif event == "droite":
+                self.move_right() # we call the up moving method
+                new_x, new_y= self.mg[0]
+            elif event == "gauche":
+                self.move_left() # we call the up moving method
+                new_x, new_y= self.mg[0]
+            position.testing_position(a, b, new_x, new_y)     
                 
-                
-        
-   
+            if self.mg[0]== self.victory and len(self.object_picked_up)<3:
+                break
+                         
+        if self.ending_game()== True:
+            print("you have won")
+        else:
+            print("you have lost")
+
     
+   
+    def picking_up(self,new_x, new_y):
+        "function that picks up objects"
+        position=Position()
+        if position.checking_coordinates(new_x, new_y)== "1":
+            self.object_picked_up.append("object1")
+            print("Great! You found object1")
+        elif position.checking_coordinates(new_x, new_y)== "2":
+             self.object_picked_up.append("object2")
+             print("Great! You found object 2")
+        elif position.checking_coordinates(new_x, new_y)== "3":
+             self.object_picked_up.append("object3")
+             print("Great! You found object 3")
 
 
     def ending_game(self):
@@ -154,34 +178,25 @@ class Position(Labyrinthe):
     def testing_position(self, first_x, first_y, new_x, new_y):
         "we change coordinates if possible"
         
-        if self.checking_coordinates(new_x,new_y)=="m":
-            self.mg[0]= first_x, first_y
-            print("Sorry, you can't walk through a wall")
-        elif self.checking_layout(new_x, new_y)== False:
-            self.mg[0]= first_x, first_y
-            return self.mg[0]
+        if self.checking_layout(new_x,new_y)== False:
             print("Sorry, you are out of the layout")
+            self.mg[0]= first_x, first_y
+            
         else:
-            self.mg[0]= new_x, new_y
-            self.laby_area[first_x, first_y]= "0"
-            self.laby_area[new_x, new_y]="G"
-            self.picking_up(new_x, new_y)
-            print(self.object_picked_up)
-            self.draw_laby()
-            self.ending_game()
+            if self.checking_coordinates(new_x, new_y)=="m":
+                self.mg[0]= first_x, first_y
+                print("Sorry, you cant walk through a wall")
+            else:
+                self.mg[0]= new_x, new_y
+                self.laby_area[first_x, first_y]= "0"
+                self.laby_area[new_x, new_y]="G"
+                self.picking_up(new_x, new_y)
+                print(self.object_picked_up)
+                self.draw_laby()
+                self.ending_game()
 
 
-    def picking_up(self,new_x, new_y):
-        "function that picks up objects"
-        if self.checking_coordinates(new_x, new_y)== "1":
-            self.object_picked_up.append("object1")
-            print("Great! You found object1")
-        elif self.checking_coordinates(new_x, new_y)== "2":
-             self.object_picked_up.append("object2")
-             print("Great! You found object 2")
-        elif self.checking_coordinates(new_x, new_y)== "3":
-             self.object_picked_up.append("object3")
-             print("Great! You found object 3")
+    
 
 
 
@@ -199,21 +214,11 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
-    position=Position()
-    while laby.ending_game()== False: #while the game is not terminated
-        a,b=laby.mg[0]
-        event=input("veuillez entrer la direction")
-        laby.changing_character(event)
-        position.testing_position(a,b, laby.new_x, laby.new_y)
-        if laby.mg[0]== laby.victory and len(laby.object_picked_up)<3:
-            break
-                         
-    if laby.ending_game()== True:
-        print("you have won")
-    else:
-        print("you have lost")
-
+    laby.draw_laby()
+    laby.placing_object()
     
+    laby.changing_character()
+  
 
     
 
@@ -231,12 +236,6 @@ main()
 
 
 
-
-
-
-
-
-        
 
 
 

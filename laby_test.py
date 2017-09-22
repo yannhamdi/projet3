@@ -31,8 +31,6 @@ class Labyrinthe:
                     elif line[i] == "0":
                         
                         self.laby_area[i,j]= "0" # we have our coordinates of our pathway
-                        possible_object= (i,j)
-                        self.free_cases.append(possible_object)
                     elif line[i] == "E":
                         self.laby_area[i,j]= "E" # we have our coordinates'wayout
                         self.victory=(i,j)
@@ -44,7 +42,6 @@ class Labyrinthe:
 
                 j += 1
 
-        self.draw_laby()
            
             
 
@@ -56,30 +53,27 @@ class Labyrinthe:
                 sys.stdout.write(self.laby_area[i,j])
 
             sys.stdout.write("\n")    
-                
-                
-            
-            
-    
-
+     
     def placing_object(self):
-        "function that places the 3 objects"
-        self.object1= self.free_cases.pop(random.randint(0, len(self.free_cases)-1))
-        self.object2= self.free_cases.pop(random.randint(0, len(self.free_cases)-1))
-        self.object3= self.free_cases.pop(random.randint(0, len(self.free_cases)-1))
-        a,b =self.object1
-        c,d= self.object2
-        e,f= self.object3
-        self.laby_area[a,b]= "1"
-        self.laby_area[c,d]= "2"
-        self.laby_area[e,f]= "3"
-        print("\n")
+        "function that places the 3 objects randomly"
+        x=1 
+        while x!=3:
+            i= random.randint(0,14)
+            j= random.randint(0,14)
+            if self.laby_area[i,j]== "0":
+                self.laby_area[i,j]= str(x)
+                x += 1
+            else:
+                x=x
         self.draw_laby()
+
+                
+            
 
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
-        position=Position()
         self.placing_object()
+        position=Position()
         while self.ending_game()== False: #while the game is not terminated
             
             a,b=self.mg[0]

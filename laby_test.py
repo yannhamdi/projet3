@@ -14,13 +14,7 @@ class Labyrinthe:
         "We initialize our labyrinthe"
         self.laby_area= {}
         self.mg=[]
-        self.free_cases =[]
         self.object_picked_up=[]
-
-        
-      
-       
-
         j=0
         with open("laby.txt", 'r') as f:# we open our labyrinthe file 
             for line in f:# for each line
@@ -41,9 +35,6 @@ class Labyrinthe:
                         self.mg.append(gyver)
 
                 j += 1
-
-           
-            
 
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
@@ -67,15 +58,11 @@ class Labyrinthe:
                 x=x
         self.draw_laby()
 
-                
-            
-
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         self.placing_object()
         position=Position()
         while self.ending_game()== False: #while the game is not terminated
-            
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
@@ -98,14 +85,11 @@ class Labyrinthe:
                 
             if self.mg[0]== self.victory and len(self.object_picked_up)<3:
                 break
-                         
         if self.ending_game()== True:
             print("you have won")
         else:
             print("you have lost")
 
-    
-   
     def picking_up(self,new_x, new_y):
         "function that picks up objects"
         position=Position()
@@ -118,11 +102,9 @@ class Labyrinthe:
         elif position.checking_coordinates(new_x, new_y)== "3":
              self.object_picked_up.append("object3")
              print("Great! You found object 3")
-
-
+    
     def ending_game(self):
         "function that checks if Mac gyver has won the game"
-        
         if self.mg[0]== self.victory and len(self.object_picked_up)==3:
             print(self.object_picked_up)
             return True
@@ -137,7 +119,6 @@ class Labyrinthe:
     
     def move_left(self):
         "function that move gyver to the left and check if the movement is in the layout"
-        
         x,y= self.mg[0]
         self.mg[0]= x, (y-1)  
           
@@ -152,11 +133,6 @@ class Labyrinthe:
         x,y= self.mg[0]
         self.mg[0]= ((x+1), y)
              
-    
-
-    
-
-   
 
 class Position(Labyrinthe):
     def checking_coordinates(self,x,y):
@@ -164,12 +140,9 @@ class Position(Labyrinthe):
         return self.laby_area[x,y] 
         
     
-    
-            
-
     def testing_position(self, first_x, first_y, new_x, new_y):
-        
-        if self.checking_coordinates(new_x, new_y)== "m":
+        "function that tests the mouvement"
+        if self.checking_coordinates(new_x, new_y)== "m":  #we check if there is a wall
             self.mg[0]= first_x, first_y
             print("sorry you cant walk through a wall")
         else:
@@ -201,8 +174,6 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
-    laby.draw_laby()
-    laby.placing_object()
     
     laby.changing_character()
   

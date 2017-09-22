@@ -96,7 +96,11 @@ class Labyrinthe:
             elif event == "gauche":
                 self.move_left() # we call the up moving method
                 new_x, new_y= self.mg[0]
-            position.testing_position(a, b, new_x, new_y)     
+            try:
+                position.testing_position(a, b, new_x, new_y) 
+            except:
+                self.mg[0]= a,b
+                print("sorry you are out of the layout")    
                 
             if self.mg[0]== self.victory and len(self.object_picked_up)<3:
                 break
@@ -166,20 +170,12 @@ class Position(Labyrinthe):
         return self.laby_area[x,y] 
         
     
-    def checking_layout(self, x,y):
-        "function thats checks if macgyver is moving inside the layout"
-        x,y = self.mg[0]
-        if 0<=x<=14 and 0<=y<=14:
-            return True
-        else:
-            return False
+    
             
 
     def testing_position(self, first_x, first_y, new_x, new_y):
-        if self.checking_layout(new_x, new_y)== False:
-                self.mg[0]= first_x, first_y
-                print("Sorry, you are out of the layout")
-        elif self.checking_coordinates(new_x, new_y)== "m":
+        
+        if self.checking_coordinates(new_x, new_y)== "m":
             self.mg[0]= first_x, first_y
             print("sorry you cant walk through a wall")
         else:

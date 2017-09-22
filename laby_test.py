@@ -63,30 +63,26 @@ class Labyrinthe:
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         position=Position()
-        self.placing_object()
         while self.ending_game()== False: #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
                 self.move_up() # we call the up moving method
-                new_x, new_y= self.mg[0] #new coordinates of gyver under the condition no wall
-                self.draw_laby()
+                
             elif event == "bas":
                 self.move_down() # we call the up moving method
-                new_x, new_y= self.mg[0]
-                self.draw_laby()
+                
             elif event == "droite":
                 self.move_right() # we call the up moving method
-                new_x, new_y= self.mg[0]
-                self.draw_laby()
+               
+                
             elif event == "gauche":
                 self.move_left() # we call the up moving method
-                new_x, new_y= self.mg[0]
-                self.draw_laby()
+            new_x, new_y= self.mg[0]   # we save our new coordinates
             try:
-                position.testing_position(a, b, new_x, new_y) 
+                position.testing_position(a, b, new_x, new_y) # we try if our new coordinates are in the layout
             except:
-                self.mg[0]= a,b
+                self.mg[0]= a,b #otherwise we keep our former coordinates
                 print("sorry you are out of the layout")    
                 
             if self.mg[0]== self.victory and len(self.object_picked_up)<3:
@@ -165,9 +161,8 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
-    laby.draw_laby()
-    laby.placing_object()
     laby.ending_game()
+    laby.placing_object()
     laby.changing_character()
   
 

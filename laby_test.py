@@ -58,11 +58,11 @@ class Labyrinthe:
                 x += 1
             else:
                 x=x
-        self.draw_laby()
 
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         position=Position()
+        self.placing_object()
         while self.ending_game()== False: #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
@@ -161,7 +161,6 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
-    laby.ending_game()
     laby.placing_object()
     laby.changing_character()
   

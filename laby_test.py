@@ -57,7 +57,7 @@ class Labyrinthe:
     def placing_object(self):
         "function that places the 3 objects randomly"
         x=1 
-        while x!=3:
+        while x<=3:
             i= random.randint(0,14)
             j= random.randint(0,14)
             if self.laby_area[i,j]== "0":

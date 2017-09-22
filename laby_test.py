@@ -35,6 +35,7 @@ class Labyrinthe:
                         self.mg.append(gyver)
 
                 j += 1
+        self.draw_laby()
 
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
@@ -44,7 +45,7 @@ class Labyrinthe:
                 sys.stdout.write(self.laby_area[i,j])
 
             sys.stdout.write("\n")    
-
+        
      
     def placing_object(self):
         "function that places the 3 objects randomly"
@@ -57,26 +58,31 @@ class Labyrinthe:
                 x += 1
             else:
                 x=x
+        self.draw_laby()
 
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
-        self.draw_laby()
         position=Position()
+        self.placing_object()
         while self.ending_game()== False: #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
                 self.move_up() # we call the up moving method
                 new_x, new_y= self.mg[0] #new coordinates of gyver under the condition no wall
+                self.draw_laby()
             elif event == "bas":
                 self.move_down() # we call the up moving method
                 new_x, new_y= self.mg[0]
+                self.draw_laby()
             elif event == "droite":
                 self.move_right() # we call the up moving method
                 new_x, new_y= self.mg[0]
+                self.draw_laby()
             elif event == "gauche":
                 self.move_left() # we call the up moving method
                 new_x, new_y= self.mg[0]
+                self.draw_laby()
             try:
                 position.testing_position(a, b, new_x, new_y) 
             except:
@@ -135,6 +141,7 @@ class Labyrinthe:
              
 
 class Position(Labyrinthe):
+
     def checking_coordinates(self,x,y):
         "function thats checks coordinates"
         return self.laby_area[x,y] 
@@ -158,7 +165,9 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
+    laby.draw_laby()
     laby.placing_object()
+    laby.ending_game()
     laby.changing_character()
   
 

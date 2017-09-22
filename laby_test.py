@@ -44,6 +44,7 @@ class Labyrinthe:
                 sys.stdout.write(self.laby_area[i,j])
 
             sys.stdout.write("\n")    
+
      
     def placing_object(self):
         "function that places the 3 objects randomly"
@@ -56,11 +57,10 @@ class Labyrinthe:
                 x += 1
             else:
                 x=x
-        self.draw_laby()
 
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
-        self.placing_object()
+        self.draw_laby()
         position=Position()
         while self.ending_game()== False: #while the game is not terminated
             a,b=self.mg[0]
@@ -155,40 +155,12 @@ class Position(Labyrinthe):
             self.ending_game()
 
 
-
-    
-
-
-
-
-
-
-    
-
-    
-
-
-
-
-
 def main():
     
     laby=Labyrinthe()
-    
+    laby.placing_object()
     laby.changing_character()
   
-
-    
-
-          
-    
-
-    
-
-    
-    
-
-    
 
 main()
 

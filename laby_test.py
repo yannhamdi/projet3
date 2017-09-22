@@ -36,6 +36,7 @@ class Labyrinthe:
 
                 j += 1
         self.draw_laby()
+        self.placing_object()
 
     def draw_laby(self, **laby_area):
         "function that draws the labyrinthe in the console"
@@ -46,7 +47,6 @@ class Labyrinthe:
 
             sys.stdout.write("\n")    
         
-     
     def placing_object(self):
         "function that places the 3 objects randomly"
         x=1 
@@ -58,11 +58,11 @@ class Labyrinthe:
                 x += 1
             else:
                 x=x
-
+        
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         position=Position()
-        self.placing_object()
+        new_x, new_y= 0,0
         while self.ending_game()== False: #while the game is not terminated
             a,b=self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
@@ -79,6 +79,7 @@ class Labyrinthe:
             elif event == "gauche":
                 self.move_left() # we call the up moving method
             new_x, new_y= self.mg[0]   # we save our new coordinates
+
             try:
                 position.testing_position(a, b, new_x, new_y) # we try if our new coordinates are in the layout
             except:
@@ -147,13 +148,16 @@ class Position(Labyrinthe):
         "function that tests the mouvement"
         if self.checking_coordinates(new_x, new_y)== "m":  #we check if there is a wall
             self.mg[0]= first_x, first_y
+            self.laby_area[new_x, new_y]= "m"
             print("sorry you cant walk through a wall")
+            self.draw_laby()
         else:
             self.mg[0]= new_x, new_y
-            self.laby_area[first_x, first_y]= "0"
-            self.laby_area[new_x, new_y]="G"
             self.picking_up(new_x, new_y)
             print(self.object_picked_up)
+            self.laby_area[first_x, first_y]= "0"
+            self.laby_area[new_x, new_y]="G"
+
             self.draw_laby()
             self.ending_game()
 
@@ -161,7 +165,6 @@ class Position(Labyrinthe):
 def main():
     
     laby=Labyrinthe()
-    laby.placing_object()
     laby.changing_character()
   
 

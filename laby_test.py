@@ -62,35 +62,32 @@ class Labyrinthe:
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         position=Position()
-        new_x, new_y= 0,0
-        while self.ending_game()== False: #while the game is not terminated
-            a,b=self.mg[0]
+        self.new_x, self.new_y= 0,0
+        while self.ending_game()== False or self.losing_game()== False: #while the game is not terminated win or loose
+            self.a, self.b = self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
-                self.move_up() # we call the up moving method
+                self.new_x, self.new_y = self.new_x - 1, self.new_y  # we are moving the coordinates towards the uppercase
                 
             elif event == "bas":
-                self.move_down() # we call the up moving method
+                self.new_x, self.new_y = self.new_x + 1, self.new_y # we are moving the coordinates towards the bottom case
                 
             elif event == "droite":
-                self.move_right() # we call the up moving method
+                self.new_x, self.new_y = self.new_x, self.new_y + 1 # we are moving the coordinates toward the case on the right
                
                 
             elif event == "gauche":
-                self.move_left() # we call the up moving method
-            new_x, new_y= self.mg[0]   # we save our new coordinates
+                self.new_x, self.new_y = self.new_x, self.new_y - 1 # we are moving the coordinates towards the case on the left
 
-            try:
-                position.testing_position(a, b, new_x, new_y) # we try if our new coordinates are in the layout
-            except:
-                self.mg[0]= a,b #otherwise we keep our former coordinates
-                print("sorry you are out of the layout")    
-                
-            if self.mg[0]== self.victory and len(self.object_picked_up)<3:
-                break
+            if self.new_x in range(15) and self.new_y in range(15):
+                position.testing_position(laby,self.a, self.b, self.new_x, self.new_y)
+            else:
+                print("sorry you are out of the layout")
+            self.ending_game()
+            self.losing_game()
         if self.ending_game()== True:
             print("you have won")
-        else:
+        elif self.losing_game() == True:
             print("you have lost")
 
     def picking_up(self,new_x, new_y):
@@ -114,52 +111,36 @@ class Labyrinthe:
         else:
             print(self.object_picked_up)
             return False
-        
-    def move_right(self):  
-        "function that move gyver to the right and check if the movement is in the layout"
-        x,y= self.mg[0]
-        self.mg[0]= x, (y+1)
     
-    def move_left(self):
-        "function that move gyver to the left and check if the movement is in the layout"
-        x,y= self.mg[0]
-        self.mg[0]= x, (y-1)  
-          
-    
-    def move_up(self):
-        "function that move up gyver and check if the movement is in the layout"
-        x,y=self.mg[0]
-        self.mg[0]= (x-1), y
-
-    def move_down(self):
-        "function that move down gyver and check if the movement is in the layout"
-        x,y= self.mg[0]
-        self.mg[0]= ((x+1), y)
+    def losing_game(self):
+        "function that checks if we loose the game"
+        if self.mg[0]== self.victory and len(self.object_picked_up)<3:
+            return True
+        else:
+            return False
+    def moving_gyver(self, new_x, new_y):
+        self.mg[0] = self.new_x, self.new_y
              
 
-class Position(Labyrinthe):
+class Position():
 
-    def checking_coordinates(self,x,y):
+    def checking_coordinates(self,laby, x,y):
         "function thats checks coordinates"
-        return self.laby_area[x,y] 
+        return laby.laby_area[x,y] 
         
     
-    def testing_position(self, first_x, first_y, new_x, new_y):
+    def testing_position(self, Laby, first_x, first_y, new_x, new_y):
         "function that tests the mouvement"
-        if self.checking_coordinates(new_x, new_y)== "m":  #we check if there is a wall
-            self.mg[0]= first_x, first_y
-            self.laby_area[new_x, new_y]= "m"
+        if laby.checking_coordinates(laby.new_x, laby.new_y)== "m":  #we check if there is a wall
+            laby.mg[0]= laby.first_x, laby.first_y
             print("sorry you cant walk through a wall")
-            self.draw_laby()
         else:
-            self.mg[0]= new_x, new_y
-            self.picking_up(new_x, new_y)
-            print(self.object_picked_up)
-            self.laby_area[first_x, first_y]= "0"
-            self.laby_area[new_x, new_y]="G"
+            laby.moving_gyver(laby.new_x, laby.new_y)
+            laby.picking_up(laby.new_x, laby.new_y)
+            print(laby.object_picked_up)
+            laby.laby_area[laby.first_x, laby.first_y]= "0"
+            laby.laby_area[laby.new_x, laby.new_y]="G"
 
-            self.draw_laby()
-            self.ending_game()
 
 
 def main():

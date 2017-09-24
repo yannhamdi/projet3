@@ -63,7 +63,7 @@ class Labyrinthe:
     def changing_character(self):
         "function that ask direction and place gyver to the new position"
         position=Position()
-        while self.ending_game()== False or self.losing_game()== False: #while the game is not terminated win or loose
+        while True:
             a, b = self.mg[0]
             event=input("veuillez entrer la direction") # we ask for the direction
             if event == "haut":
@@ -83,31 +83,23 @@ class Labyrinthe:
                 position.testing_position(self,a, b, new_x, new_y)
             else:
                 print("sorry you are out of the layout")
-            self.ending_game()
-            self.losing_game()
             self.draw_laby()
+            if self.mg[0]== self.victory:
+                break
         if self.ending_game()== True:
             print("you have won")
-        elif self.losing_game() == True:
+        else:
             print("you have lost")
 
    
     
     def ending_game(self):
-        "function that checks if Mac gyver has won the game"
-        if self.mg[0]== self.victory and len(self.object_picked_up)==3:
-            print(self.object_picked_up)
+        "function that checks if Mac gyver has won the game or loose the game"
+        if len(self.object_picked_up)==3:
             return True
-        else:
-            print(self.object_picked_up)
+        elif len(self.object_picked_up)<= 3:
             return False
     
-    def losing_game(self):
-        "function that checks if we loose the game"
-        if self.mg[0]== self.victory and len(self.object_picked_up)<3:
-            return True
-        else:
-            return False
     def moving_gyver(self, new_x, new_y):
         self.mg[0] = new_x, new_y
              
@@ -141,6 +133,8 @@ class Position():
             print(labyrinthe.object_picked_up)
             labyrinthe.laby_area[a, b]= "0"
             labyrinthe.laby_area[new_x, new_y]="G"
+        
+
 
 
 

@@ -85,6 +85,7 @@ class Labyrinthe:
                 print("sorry you are out of the layout")
             self.ending_game()
             self.losing_game()
+            self.draw_laby()
         if self.ending_game()== True:
             print("you have won")
         elif self.losing_game() == True:

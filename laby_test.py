@@ -48,7 +48,7 @@ class Labyrinthe:
            
             
 
-    def draw_laby(self, **laby_area):
+    def draw_laby(self, laby_area):
         "function that draws the labyrinthe in the console"
 
         for i in range(15):

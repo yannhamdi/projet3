@@ -18,12 +18,7 @@ class Labyrinthe:
         self.mg=[] # mac gyver position
         self.free_cases =[]
         self.object_picked_up=[]
-        self.wall= pygame.image.load("mur.gif").convert()
-        self.pic_object1= pygame.image.load("bottle.gif").convert()
-        self.pic_gyver= pygame.image.load("gyver.png").convert_alpha()
-        self.bad_guy= pygame.image.load("bad.png").convert_alpha()
-        self.pic_object2= pygame.image.load("box.gif").convert()
-        self.pic_object3= pygame.image.load("coin.gif").convert()
+       
         
         j=0
         with open("laby.txt", 'r') as f:# we open our labyrinthe file 
@@ -50,15 +45,48 @@ class Labyrinthe:
         self.changing_character()
 
     
-    def draw_laby(self, laby_area):
+    def draw_laby(self):
         "function that draws the labyrinthe in the console"
-
+        fenetre= pygame.display.set_mode((Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE, Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE ))
+        self.wall= pygame.image.load("mur.gif").convert()
+        self.pic_object1= pygame.image.load("bottle.gif").convert()
+        self.pic_gyver= pygame.image.load("gyver.png").convert_alpha()
+        self.bad_guy= pygame.image.load("bad.png").convert_alpha()
+        self.pic_object2= pygame.image.load("box.gif").convert()
+        self.pic_object3= pygame.image.load("coin.gif").convert()
+        pygame.init()
+        self.placing_object()
+        position = Position()
+        fond= pygame.image.load("fond.jpg").convert()
+        fenetre.blit(fond,(0,0))
         for i in range(15):
             for j in range(15):
-                sys.stdout.write(self.laby_area[i,j])
-
-            sys.stdout.write("\n")    
-        
+                if position.checking_coordinates(self,i,j)== "m":
+                    x= i* Labyrinthe.WIDTH_CASE
+                    y= j* Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.wall, (x,y))
+                elif position.checking_coordinates(self,i,j)== "1":
+                    x = i * Labyrinthe.WIDTH_CASE
+                    y= j * Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.pic_object1, (x,y))
+                elif position.checking_coordinates(self,i,j)== "G":
+                    x= i * Labyrinthe.WIDTH_CASE
+                    y= j * Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.pic_gyver, (x,y))
+                elif position.checking_coordinates(self,i,j)== "2":
+                    x= i * Labyrinthe.WIDTH_CASE
+                    y= j * Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.pic_object2, (x, y))
+                elif position.checking_coordinates(self,i,j)== "E":
+                    x= i* Labyrinthe.WIDTH_CASE
+                    y= j * Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.bad_guy, (x,y))
+                elif position.checking_coordinates(self,i,j)== "3":
+                    x= i* Labyrinthe.WIDTH_CASE
+                    y= j* Labyrinthe.WIDTH_CASE
+                    fenetre.blit(self.pic_object3, (x,y))
+        pygame.display.flip()
+    
     def placing_object(self):
         "function that places the 3 objects randomly"
         x=1 
@@ -151,62 +179,27 @@ class Position():
 def main():
     
     
-    pygame.init()
-    fenetre= pygame.display.set_mode((Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE, Labyrinthe.WIDTH_CASE* Labyrinthe.SPRITE ))
-    laby=Labyrinthe()
-    macgyver=Character()
-    fond= pygame.image.load("fond.jpg").convert()
-    fenetre.blit(fond,(0,0))
-    for i in range(15):
-        for j in range(15):
-            if laby.checking_coordinates(i,j)== "m":
-                x= i*40
-                y= j*40
-                fenetre.blit(laby.wall, (x,y))
-            elif laby.checking_coordinates(i,j)== "1":
-                x= i*40
-                y= j*40
-                fenetre.blit(laby.pic_object1, (x,y))
-            elif laby.checking_coordinates(i,j)== "G":
-                x= i*40
-                y= j*40
-                fenetre.blit(laby.pic_gyver, (x,y))
-            elif laby.checking_coordinates(i,j)== "2":
-            	x= i*40
-            	y= j*40
-            	fenetre.blit(laby.pic_object2, (x, y))
-            elif laby.checking_coordinates(i,j)== "E":
-            	x= i* Labyrinthe.WIDTH_CASE
-            	y= j * Labyrinthe.WIDTH_CASE
-            	fenetre.blit(laby.bad_guy, (x,y))
-            elif laby.checking_coordinates(i,j)== "3":
-            	x= i* Labyrinthe.WIDTH_CASE
-            	y= j* Labyrinthe.WIDTH_CASE
-            	fenetre.blit(laby.pic_object3, (x,y))
-            
-        
-    pygame.display.flip()
-    continuer=1
-    while continuer:
-        pygame.time.Clock().tick(30)
-        for event in pygame.event.get():
-            if event.type==QUIT:
-                continuer = 0
-            elif event.type== K_RIGHT:
-                macgyver.move_right()
-            elif event.type == K_LEFT:
-                macgyver.move_left()
-            elif event.type== K_UP:
-                macgyver.move_up()
-            elif event.type== K_DOWN:
-                macgyver.move_down()
+   
+    #continuer=1
+    #while continuer:
+     #   pygame.time.Clock().tick(30)
+      #  for event in pygame.event.get():
+       #     if event.type==QUIT:
+               # continuer = 0
+        #    elif event.type== K_RIGHT:
+         #       macgyver.move_right()
+          #  elif event.type == K_LEFT:
+           #     macgyver.move_left()
+            #elif event.type== K_UP:
+             #   macgyver.move_up()
+            #elif event.type== K_DOWN:
+              #  macgyver.move_down()
 
-        continue
+        #continue
     
-
+    laby=Labyrinthe()
     laby.placing_object()
     position=Position()
-    macgyver= Character()
     laby.changing_character()
 
     

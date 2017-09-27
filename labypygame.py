@@ -127,8 +127,8 @@ class Labyrinthe:
                     else:
                         print("sorry you are out of the layout")
                     self.draw_laby()
-                    if self.mg[0]== self.victory:
-                        break
+            if self.mg[0]== self.victory:
+                break
         if self.ending_game()== True:
             print("you have won")
         else:

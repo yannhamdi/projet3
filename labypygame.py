@@ -42,7 +42,7 @@ class Labyrinthe:
                 j += 1
         self.draw_laby()
         self.placing_object()
-        self.changing_character()
+        self.changing()
 
     
     def draw_laby(self):
@@ -55,7 +55,6 @@ class Labyrinthe:
         self.pic_object2= pygame.image.load("box.gif").convert()
         self.pic_object3= pygame.image.load("coin.gif").convert()
         pygame.init()
-        self.placing_object()
         position = Position()
         fond= pygame.image.load("fond.jpg").convert()
         fenetre.blit(fond,(0,0))
@@ -97,35 +96,39 @@ class Labyrinthe:
                 self.laby_area[i,j]= str(x)
                 x += 1
     
-                
-   
-        
-    def changing_character(self):
-        "function that ask direction and place gyver to the new position"
+    def changing(self):
         position=Position()
         while True:
             a, b = self.mg[0]
-            event=input("veuillez entrer la direction") # we ask for the direction
-            if event == "haut":
-                new_x, new_y = (a - 1), b  # we are moving the coordinates towards the uppercase
-                
-            elif event == "bas":
-                new_x, new_y = (a+ 1), b # we are moving the coordinates towards the bottom case
-                
-            elif event == "droite":
-                new_x, new_y = a, (b + 1) # we are moving the coordinates toward the case on the right
-               
-                
-            elif event == "gauche":
-                new_x, new_y = a, (b - 1) # we are moving the coordinates towards the case on the left
-
-            if new_x in range(15) and new_y in range(15):
-                position.testing_position(self,a, b, new_x, new_y)
-            else:
-                print("sorry you are out of the layout")
-            self.draw_laby()
-            if self.mg[0]== self.victory:
-                break
+            pygame.time.Clock().tick(30)
+            for event in pygame.event.get():
+                # if the player presses echap we stop the game
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        break
+                    # if the player presses the keydown we call the function to test the position at the bottom case    
+                    elif event.key == K_DOWN:
+                         new_x, new_y = a, (b + 1)
+                        
+                    # if the player presses the keyup we will be trying the coordinates at the upper case
+                    elif event.key == K_UP:
+                        new_x, new_y = a, (b - 1)
+                        
+                    # if the player presses the keyleft 
+                    elif event.key == K_LEFT:
+                        
+                        new_x, new_y = (a - 1), b 
+                    # if the player presses the keyright
+                    elif event.key == K_RIGHT:
+                        new_x, new_y = (a+ 1), b
+                       
+                    if new_x in range(15) and new_y in range(15):
+                        position.testing_position(self,a, b, new_x, new_y)
+                    else:
+                        print("sorry you are out of the layout")
+                    self.draw_laby()
+                    if self.mg[0]== self.victory:
+                        break
         if self.ending_game()== True:
             print("you have won")
         else:
@@ -173,6 +176,7 @@ class Position():
             print(labyrinthe.object_picked_up)
             labyrinthe.laby_area[a, b]= "0"
             labyrinthe.laby_area[new_x, new_y]="G"
+            labyrinthe.draw_laby()
         
 
     
@@ -200,7 +204,7 @@ def main():
     laby=Labyrinthe()
     laby.placing_object()
     position=Position()
-    laby.changing_character()
+    laby.changing()
 
     
 main()

@@ -6,9 +6,9 @@ from classes import *
 def main():
     
     
-    labyrinthe()
-    Position()
-    labyrinthe.changing()
+    laby = Labyrinthe()
+    
+    laby.changing()
 
     
 main()

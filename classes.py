@@ -98,7 +98,8 @@ class Labyrinthe:
     
     def changing(self):
         position=Position()
-        while True:
+        #while macgyver has not arrived at the exit we have the loop
+        while self.mg[0]!= self.victory:
             a, b = self.mg[0]  # we save a and b as the actual coordinate of macgyver
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
@@ -128,9 +129,7 @@ class Labyrinthe:
                     else:
                         print("sorry you are out of the layout")
                     self.draw_laby() # we call up the method to upddate our labyrinthe
-            # if macgyver arrives at the exit then we stop the loop and test if we won or loose
-            if self.mg[0]== self.victory:
-                break
+            
         if self.ending_game()== True:
             print("you have won")
         else:

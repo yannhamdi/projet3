@@ -40,8 +40,8 @@ class Labyrinthe:
                         self.mg.append(gyver)
 
                 j += 1
-        self.draw_laby()
         self.placing_object()
+        self.draw_laby()
         self.changing()
 
     
@@ -103,12 +103,9 @@ class Labyrinthe:
             a, b = self.mg[0]  # we save a and b as the actual coordinate of macgyver
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
-                # if the player presses echap we stop the game
                 if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        break
                     # if the player presses the keydown we call the function to test the position at the bottom case    
-                    elif event.key == K_DOWN:
+                    if event.key == K_DOWN:
                          new_x, new_y = a, (b + 1)
                         
                     # if the player presses the keyup we will be trying the coordinates at the upper case

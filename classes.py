@@ -2,6 +2,7 @@
 # -*- coding: Utf-8 -*
 
 "Game where macgyver must collect 3 objects before find the exit"
+
 import random
 
 import pygame 
@@ -14,7 +15,7 @@ class Labyrinthe:
     WIDTH_CASE = 40
     # the number of sprite
     SPRITE = 15
-    def __init__ (self):
+    def __init__(self):
         "We initialize our labyrinthe"
         self.laby_area = {} #dictionnary that has all the coordinates of the labyrinthe
         self.mcgyver = [] # mac gyver position
@@ -27,15 +28,15 @@ class Labyrinthe:
             for line in file_laby:# for each line
                 for i in range(len(line)):
                     if line[i] == "m": 
-                        
-                        self.laby_area[i, j] = "m"  # we create our dictionnary including coordinates of the wall
+                        # we create our dictionnary including coordinates of the wall
+                        self.laby_area[i, j] = "m"  
                     elif line[i] == "0":
                         
                         self.laby_area[i, j] = "0" # we have our coordinates of our pathway
                     elif line[i] == "E":
                         self.laby_area[i, j] = "E" # we have our coordinates'wayout
-                        self.victory=(i, j)
-                    elif line[i]== "G":
+                        self.victory = (i, j)
+                    elif line[i] == "G":
                         self.laby_area[i, j] = "G"
 
                         gyver = (i, j)
@@ -52,7 +53,8 @@ class Labyrinthe:
     def draw_laby(self):
         "function that draws the labyrinthe in the console"
         # we create the labyrinthe frame
-        fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE, Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE ))
+        fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE,
+                                           Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE))
         # we initialize our pictures for the game
         self.wall = pygame.image.load("mur.gif").convert()
         self.pic_object1 = pygame.image.load("bottle.gif").convert()
@@ -62,7 +64,7 @@ class Labyrinthe:
         self.pic_object3 = pygame.image.load("coin.gif").convert()
         # we put the background picture
         fond = pygame.image.load("fond.jpg").convert()
-        fenetre.blit(fond,(0, 0))
+        fenetre.blit(fond, (0, 0))
         # for each lines
         for i in range(15):
             # for each columns
@@ -109,9 +111,10 @@ class Labyrinthe:
     def placing_object(self):
         "function that places the 3 objects randomly"
         number_object = 1 
-        while number_object <= 3:  
-            i = random.randint(0,14)   #we pick up a random number between 0 and 14 in order to pick up a random column
-            j = random.randint(0,14)   # random line
+        while number_object <= 3:
+            #we pick up a random number between 0 and 14 in order to pick up a random column  
+            i = random.randint(0, 14)   
+            j = random.randint(0, 14)   # random line
             if self.laby_area[i, j] == "0":   # if the coordinate picked up is free
                 self.laby_area[i, j] = str(number_object) # we save our object
                 number_object += 1
@@ -124,9 +127,9 @@ class Labyrinthe:
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
-                    # if the player presses the keydown we call the function to test the position at the bottom case    
+                    # if the player presses the keydown we call the function to test the the bottom case    
                     if event.key == K_DOWN:
-                         new_x, new_y = position_x, (position_y + 1)
+                        new_x, new_y = position_x, (position_y + 1)
                     # if the player presses the keyup we will be trying the coordinates at the upper case
                     elif event.key == K_UP:
                         new_x, new_y = position_x, (position_y - 1)

@@ -8,6 +8,7 @@ import pygame
 from pygame.locals import *
 
 
+
 class Labyrinthe:
     "the class that manages our labyrinthe"
     # the size of our case
@@ -72,8 +73,8 @@ class Labyrinthe:
                 # if we find a wall
                 if position.checking_coordinates(self, i, j)== "m":
                     # we save our wall coordinates and multiply by the size of the cases
-                    location_x = i* Labyrinthe.WIDTH_CASE
-                    location_y = j* Labyrinthe.WIDTH_CASE
+                    location_x = i * Labyrinthe.WIDTH_CASE
+                    location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture at the appropiated coordinated
                     fenetre.blit(self.wall, (location_x, location_y))
                 # if we find object 1       
@@ -110,13 +111,13 @@ class Labyrinthe:
     
     def placing_object(self):
         "function that places the 3 objects randomly"
-        x = 1 
-        while x <= 3:  
+        number_object = 1 
+        while number_object <= 3:  
             i = random.randint(0,14)   #we pick up a random number between 0 and 14 in order to pick up a random column
             j = random.randint(0,14)   # random line
             if self.laby_area[i,j] == "0":   # if the coordinate picked up is free
-                self.laby_area[i,j] = str(x) # we save our object
-                x += 1
+                self.laby_area[i,j] = str(number_object) # we save our object
+                number_object += 1
     
     def changing(self):
         "function that catches event"

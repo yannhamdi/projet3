@@ -71,20 +71,20 @@ class Labyrinthe:
             # for each columns
             for j in range(15):
                 # if we find a wall
-                if position.checking_coordinates(self,i,j)== "m":
+                if position.checking_coordinates(self, i, j)== "m":
                     # we save our wall coordinates and multiply by the size of the cases
                     x= i* Labyrinthe.WIDTH_CASE
                     y= j* Labyrinthe.WIDTH_CASE
                     # we place the picture at the appropiated coordinated
                     fenetre.blit(self.wall, (x,y))
                 # if we find object 1    
-                elif position.checking_coordinates(self,i,j)== "1":
+                elif position.checking_coordinates(self, i, j)== "1":
                     x = i * Labyrinthe.WIDTH_CASE
                     y= j * Labyrinthe.WIDTH_CASE
                     # we place the object1
                     fenetre.blit(self.pic_object1, (x,y))
                 # if we find a "G" it means we have our macgyver character
-                elif position.checking_coordinates(self,i,j)== "G":
+                elif position.checking_coordinates(self, i, j)== "G":
                     x= i * Labyrinthe.WIDTH_CASE
                     y= j * Labyrinthe.WIDTH_CASE
                     # we place macgyver picture
@@ -96,13 +96,13 @@ class Labyrinthe:
                     #we place the picture of object 2
                     fenetre.blit(self.pic_object2, (x, y))
                 # this is the exit and where he is located the bad guy
-                elif position.checking_coordinates(self,i,j)== "E":
+                elif position.checking_coordinates(self, i, j)== "E":
                     x= i* Labyrinthe.WIDTH_CASE
                     y= j * Labyrinthe.WIDTH_CASE
                     # we place the picture of the bad guy
                     fenetre.blit(self.bad_guy, (x,y))
                 # object 3
-                elif position.checking_coordinates(self,i,j)== "3":
+                elif position.checking_coordinates(self, i, j)== "3":
                     x= i* Labyrinthe.WIDTH_CASE
                     y= j* Labyrinthe.WIDTH_CASE
                     fenetre.blit(self.pic_object3, (x,y))
@@ -169,22 +169,22 @@ class Labyrinthe:
 
 class Position:
     "classe that checks the mouvement"
-    def checking_coordinates(self,labyrinthe, x,y):
+    def checking_coordinates(self, labyrinthe, x,y):
         "function thats checks coordinates"
         # we return what has the coordinates provided
         return labyrinthe.laby_area[x,y] 
      
-    def picking_up(self,labyrinthe, new_x, new_y):
+    def picking_up(self, labyrinthe, new_x, new_y):
         "function that picks up objects"
-        if self.checking_coordinates(labyrinthe,new_x, new_y) == "1":
+        if self.checking_coordinates(labyrinthe, new_x, new_y) == "1":
             # we add to the list object 1
             labyrinthe.object_picked_up.append("object1")
             print("Great! You found object1")
-        elif self.checking_coordinates(labyrinthe,new_x, new_y) == "2":
+        elif self.checking_coordinates(labyrinthe, new_x, new_y) == "2":
             # we add to the list object 2
             labyrinthe.object_picked_up.append("object2")
             print("Great! You found object 2")
-        elif self.checking_coordinates(labyrinthe,new_x, new_y) == "3":
+        elif self.checking_coordinates(labyrinthe, new_x, new_y) == "3":
             # we add to the list object 3
             labyrinthe.object_picked_up.append("object3")
             print("Great! You found object 3")   

@@ -164,30 +164,32 @@ class Labyrinthe:
         # we set the new coordinates
         self.mcgyver[0] = new_x, new_y
              
+    def picking_up(self, new_x, new_y):
+        "function that picks up objects"
+        if Position.checking_coordinates(self, new_x, new_y) == "1":
+            # we add to the list object 1
+            self.object_picked_up.append("object1")
+            print("Great! You found object1")
+        elif Position.checking_coordinates(self, new_x, new_y) == "2":
+            # we add to the list object 2
+            self.object_picked_up.append("object2")
+            print("Great! You found object 2")
+        elif Position.checking_coordinates(self, new_x, new_y) == "3":
+            # we add to the list object 3
+            self.object_picked_up.append("object3")
+            print("Great! You found object 3") 
 
 class Position:
     "classe that checks the mouvement"
-    def checking_coordinates(labyrinthe, coordinate_x, coordinate_y):
+    @classmethod
+    def checking_coordinates(cls,labyrinthe, coordinate_x, coordinate_y):
         "function thats checks coordinates"
         # we return what has the coordinates provided
         return labyrinthe.laby_area[coordinate_x, coordinate_y] 
-        checking_coordinates = classmethod(checking_coordinates)
+        
      
-    def picking_up(self, labyrinthe, new_x, new_y):
-        "function that picks up objects"
-        if Position.checking_coordinates(labyrinthe, new_x, new_y) == "1":
-            # we add to the list object 1
-            labyrinthe.object_picked_up.append("object1")
-            print("Great! You found object1")
-        elif Position.checking_coordinates(labyrinthe, new_x, new_y) == "2":
-            # we add to the list object 2
-            labyrinthe.object_picked_up.append("object2")
-            print("Great! You found object 2")
-        elif Position.checking_coordinates(labyrinthe, new_x, new_y) == "3":
-            # we add to the list object 3
-            labyrinthe.object_picked_up.append("object3")
-            print("Great! You found object 3")   
-    
+     
+    @classmethod
     def testing_position(cls, labyrinthe, first_x, first_y, new_x, new_y):
         "function that tests the mouvement"
         if Position.checking_coordinates(labyrinthe, new_x, new_y) == "m":  #we check if there is a wall
@@ -196,16 +198,16 @@ class Position:
         else:
             #if the new coordinates are not a wall then we move gyver
             labyrinthe.moving_gyver(new_x, new_y)
-            self.picking_up(labyrinthe, new_x, new_y)
+            labyrinthe.picking_up(new_x, new_y)
             print(labyrinthe.object_picked_up)
             #the former gyver position is becoming a free path
             labyrinthe.laby_area[first_x, first_y] = "0"
             # we put gyver on our dictionnary
             labyrinthe.laby_area[new_x, new_y] = "G"
             labyrinthe.draw_laby()
-        testing_position = classmethod(testing_position)
+        
 
-
+    
 
 
 if __name__ == '__main__':

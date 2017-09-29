@@ -5,7 +5,7 @@
 
 import random
 
-import pygame 
+import pygame
 from pygame.locals import *
 
 
@@ -21,17 +21,15 @@ class Labyrinthe:
         self.mcgyver = [] # mac gyver position
         # the bag that contains the object picked up
         self.object_picked_up = []
-       
-        
         j = 0
-        with open("laby.txt", 'r') as file_laby:# we open our labyrinthe file 
+        # we open our labyrinthe file
+        with open("laby.txt", 'r') as file_laby:
             for line in file_laby:# for each line
                 for i in range(len(line)):
-                    if line[i] == "m": 
+                    if line[i] == "m":
                         # we create our dictionnary including coordinates of the wall
-                        self.laby_area[i, j] = "m"  
+                        self.laby_area[i, j] = "m"
                     elif line[i] == "0":
-                        
                         self.laby_area[i, j] = "0" # we have our coordinates of our pathway
                     elif line[i] == "E":
                         self.laby_area[i, j] = "E" # we have our coordinates'wayout
@@ -76,7 +74,7 @@ class Labyrinthe:
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture at the appropiated coordinated
                     fenetre.blit(self.wall, (location_x, location_y))
-                # if we find object 1       
+                # if we find object 1
                 elif Position.checking_coordinates(self, i, j) == "1":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
@@ -105,44 +103,47 @@ class Labyrinthe:
                     location_x = i* Labyrinthe.WIDTH_CASE
                     location_y = j* Labyrinthe.WIDTH_CASE
                     fenetre.blit(self.pic_object3, (location_x, location_y))
-        # we update the frame   
+        # we update the frame
         pygame.display.flip()
-    
+
     def placing_object(self):
         "function that places the 3 objects randomly"
-        number_object = 1 
+        number_object = 1
         while number_object <= 3:
-            #we pick up a random number between 0 and 14 in order to pick up a random column  
-            i = random.randint(0, 14)   
+            #we pick up a random number between 0 and 14 in order to pick up a random column
+            i = random.randint(0, 14)
             j = random.randint(0, 14)   # random line
             if self.laby_area[i, j] == "0":   # if the coordinate picked up is free
                 self.laby_area[i, j] = str(number_object) # we save our object
                 number_object += 1
-    
+
     def changing(self):
         "function that catches event"
         #while macgyver has not arrived at the exit we have the loop
         while self.mcgyver[0] != self.victory:
-            position_x, position_y = self.mcgyver[0]  # we save a and b as the actual coordinate of macgyver
+            #initial position of macgyver
+            position_x, position_y = self.mcgyver[0]
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
-                    # if the player presses the keydown we call the function to test the the bottom case    
+                    # if the player presses keydown
                     if event.key == K_DOWN:
+                        # we calculate new coordinates
                         new_x, new_y = position_x, (position_y + 1)
-                    # if the player presses the keyup we will be trying the coordinates at the upper case
+                    # if the player presses the keyup
                     elif event.key == K_UP:
+                        #we calculate new coordinates
                         new_x, new_y = position_x, (position_y - 1)
-                    # if the player presses the keyleft 
+                    # if the player presses the keyleft
                     elif event.key == K_LEFT:
-                        new_x, new_y = (position_x - 1), position_y 
+                        new_x, new_y = (position_x - 1), position_y
                     # if the player presses the keyright
                     elif event.key == K_RIGHT:
                         new_x, new_y = (position_x + 1), position_y
-                    # we check if the movement is inside the labyrinth   
+                    # we check if the movement is inside the labyrinth
                     if new_x in range(15) and new_y in range(15):
                         # if it is then we call our method which test the mouvement
-                        Position.testing_position(self,position_x, position_y, new_x, new_y)
+                        Position.testing_position(self, position_x, position_y, new_x, new_y)
                     else:
                         print("sorry you are out of the layout")
                     self.draw_laby() # we call up the method to upddate our labyrinthe
@@ -160,12 +161,12 @@ class Labyrinthe:
         # we check if he hasnt got the 3 objects and then he has lost
         elif len(self.object_picked_up) <= 3:
             return False
-    
+
     def moving_gyver(self, new_x, new_y):
         "function that gives the new coordinates of macgyver"
         # we set the new coordinates
         self.mcgyver[0] = new_x, new_y
-             
+
     def picking_up(self, new_x, new_y):
         "function that picks up objects"
         if Position.checking_coordinates(self, new_x, new_y) == "1":
@@ -179,7 +180,7 @@ class Labyrinthe:
         elif Position.checking_coordinates(self, new_x, new_y) == "3":
             # we add to the list object 3
             self.object_picked_up.append("object3")
-            print("Great! You found object 3") 
+            print("Great! You found object 3")
 
 class Position:
     "classe that checks the mouvement"
@@ -187,12 +188,12 @@ class Position:
     def checking_coordinates(cls, labyrinthe, coordinate_x, coordinate_y):
         "function thats checks coordinates"
         # we return what has the coordinates provided
-        return labyrinthe.laby_area[coordinate_x, coordinate_y] 
+        return labyrinthe.laby_area[coordinate_x, coordinate_y]
     @classmethod
     def testing_position(cls, labyrinthe, first_x, first_y, new_x, new_y):
         "function that tests the mouvement"
         # we check if there is a wall
-        if Position.checking_coordinates(labyrinthe, new_x, new_y) == "m":  
+        if Position.checking_coordinates(labyrinthe, new_x, new_y) == "m":
             labyrinthe.mcgyver[0] = first_x, first_y
             print("sorry you cant walk through a wall")
         else:
@@ -205,7 +206,7 @@ class Position:
             # we put gyver on our dictionnary
             labyrinthe.laby_area[new_x, new_y] = "G"
             labyrinthe.draw_laby()
-        
+
 
 if __name__ == '__main__':
     main()

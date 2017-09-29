@@ -4,10 +4,10 @@ import random
 
 
 import pygame
+
 from pygame.locals import *
 
-pygame.init()
-        
+
 class Labyrinthe:
     "the class that manages our labyrinthe"
     # the size of our case
@@ -89,7 +89,7 @@ class Labyrinthe:
                     # we place macgyver picture
                     fenetre.blit(self.pic_gyver, (location_x, location_y))
                 #for the object 2
-                elif position.checking_coordinates(self,i,j)== "2":
+                elif position.checking_coordinates(self, i, j)== "2":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     #we place the picture of object 2

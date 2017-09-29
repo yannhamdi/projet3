@@ -111,18 +111,18 @@ class Labyrinthe:
     
     def placing_object(self):
         "function that places the 3 objects randomly"
-        x=1 
-        while x<=3:  
-            i= random.randint(0,14)   #we pick up a random number between 0 and 14 in order to pick up a random column
-            j= random.randint(0,14)   # random line
-            if self.laby_area[i,j]== "0":   # if the coordinate picked up is free
-                self.laby_area[i,j]= str(x) # we save our object
+        x = 1 
+        while x <= 3:  
+            i = random.randint(0,14)   #we pick up a random number between 0 and 14 in order to pick up a random column
+            j = random.randint(0,14)   # random line
+            if self.laby_area[i,j] == "0":   # if the coordinate picked up is free
+                self.laby_area[i,j] = str(x) # we save our object
                 x += 1
     
     def changing(self):
         position=Position()
         #while macgyver has not arrived at the exit we have the loop
-        while self.mg[0]!= self.victory:
+        while self.mg[0] != self.victory:
             a, b = self.mg[0]  # we save a and b as the actual coordinate of macgyver
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
@@ -147,7 +147,7 @@ class Labyrinthe:
                         print("sorry you are out of the layout")
                     self.draw_laby() # we call up the method to upddate our labyrinthe
         # we check if the player has won or has lost
-        if self.ending_game()== True:
+        if self.ending_game() == True:
             print("you have won")
         else:
             print("you have lost")
@@ -155,10 +155,10 @@ class Labyrinthe:
     def ending_game(self):
         "function that checks if Mac gyver has won the game or loose the game"
         # mac gyver has arrived at the exit we check if he has the 3 objects
-        if len(self.object_picked_up)==3:
+        if len(self.object_picked_up) == 3:
             return True
         # we check if he hasnt got the 3 objects and then he has lost
-        elif len(self.object_picked_up)<= 3:
+        elif len(self.object_picked_up) <= 3:
             return False
     
     def moving_gyver(self, new_x, new_y):
@@ -176,33 +176,33 @@ class Position:
      
     def picking_up(self,labyrinthe, new_x, new_y):
         "function that picks up objects"
-        if self.checking_coordinates(labyrinthe,new_x, new_y)== "1":
+        if self.checking_coordinates(labyrinthe,new_x, new_y) == "1":
             # we add to the list object 1
             labyrinthe.object_picked_up.append("object1")
             print("Great! You found object1")
-        elif self.checking_coordinates(labyrinthe,new_x, new_y)== "2":
+        elif self.checking_coordinates(labyrinthe,new_x, new_y) == "2":
             # we add to the list object 2
             labyrinthe.object_picked_up.append("object2")
             print("Great! You found object 2")
-        elif self.checking_coordinates(labyrinthe,new_x, new_y)== "3":
+        elif self.checking_coordinates(labyrinthe,new_x, new_y) == "3":
             # we add to the list object 3
             labyrinthe.object_picked_up.append("object3")
             print("Great! You found object 3")   
     
     def testing_position(self, labyrinthe, a, b, new_x, new_y):
         "function that tests the mouvement"
-        if self.checking_coordinates(labyrinthe, new_x, new_y)== "m":  #we check if there is a wall
-            labyrinthe.mg[0]= a, b
+        if self.checking_coordinates(labyrinthe, new_x, new_y) == "m":  #we check if there is a wall
+            labyrinthe.mg[0] = a, b
             print("sorry you cant walk through a wall")
         else:
             #if the new coordinates are not a wall then we move gyver
             labyrinthe.moving_gyver(new_x, new_y)
-            self.picking_up(labyrinthe,new_x,new_y)
+            self.picking_up(labyrinthe, new_x, new_y)
             print(labyrinthe.object_picked_up)
             #the former gyver position is becoming a free path
-            labyrinthe.laby_area[a, b]= "0"
+            labyrinthe.laby_area[a, b] = "0"
             # we put gyver on our dictionnary
-            labyrinthe.laby_area[new_x, new_y]="G"
+            labyrinthe.laby_area[new_x, new_y] = "G"
             labyrinthe.draw_laby()
 
 

@@ -8,6 +8,8 @@ import random
 import pygame
 from pygame.locals import *
 
+import sys
+
 
 class Labyrinthe:
     "the class that manages our labyrinthe"
@@ -125,7 +127,9 @@ class Labyrinthe:
             position_x, position_y = self.mcgyver[0]
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
-                if event.type == KEYDOWN:
+                if event.type == QUIT:
+                	sys.exit()
+                elif event.type == KEYDOWN:
                     # if the player presses keydown
                     if event.key == K_DOWN:
                         # we calculate new coordinates
@@ -152,6 +156,8 @@ class Labyrinthe:
             print("you have won")
         else:
             print("you have lost")
+
+
 
     def ending_game(self):
         "function that checks if Mac gyver has won the game or loose the game"

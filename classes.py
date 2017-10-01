@@ -53,8 +53,8 @@ class Labyrinthe:
     def draw_laby(self):
         "function that draws the labyrinthe in the console"
         # we create the labyrinthe frame
-        fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE,
-                                           Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE))
+        self.fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE,
+                                                Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE))
         # we initialize our pictures for the game
         self.wall = pygame.image.load("mur.gif").convert()
         self.pic_object1 = pygame.image.load("bottle.gif").convert()
@@ -64,7 +64,7 @@ class Labyrinthe:
         self.pic_object3 = pygame.image.load("coin.gif").convert()
         # we put the background picture
         fond = pygame.image.load("fond.jpg").convert()
-        fenetre.blit(fond, (0, 0))
+        self.fenetre.blit(fond, (0, 0))
         # for each lines
         for i in range(15):
             # for each columns
@@ -75,36 +75,36 @@ class Labyrinthe:
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture at the appropiated coordinated
-                    fenetre.blit(self.wall, (location_x, location_y))
+                    self.fenetre.blit(self.wall, (location_x, location_y))
                 # if we find object 1
                 elif Position.checking_coordinates(self, i, j) == "1":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the object1
-                    fenetre.blit(self.pic_object1, (location_x, location_y))
+                    self.fenetre.blit(self.pic_object1, (location_x, location_y))
                 # if we find a "G" it means we have our macgyver character
                 elif Position.checking_coordinates(self, i, j) == "G":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place macgyver picture
-                    fenetre.blit(self.pic_gyver, (location_x, location_y))
+                    self.fenetre.blit(self.pic_gyver, (location_x, location_y))
                 #for the object 2
                 elif Position.checking_coordinates(self, i, j) == "2":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     #we place the picture of object 2
-                    fenetre.blit(self.pic_object2, (location_x, location_y))
+                    self.fenetre.blit(self.pic_object2, (location_x, location_y))
                 # this is the exit and where he is located the bad guy
                 elif Position.checking_coordinates(self, i, j) == "E":
                     location_x = i* Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture of the bad guy
-                    fenetre.blit(self.bad_guy, (location_x, location_y))
+                    self.fenetre.blit(self.bad_guy, (location_x, location_y))
                 # object 3
                 elif Position.checking_coordinates(self, i, j) == "3":
                     location_x = i* Labyrinthe.WIDTH_CASE
                     location_y = j* Labyrinthe.WIDTH_CASE
-                    fenetre.blit(self.pic_object3, (location_x, location_y))
+                    self.fenetre.blit(self.pic_object3, (location_x, location_y))
         # we update the frame
         pygame.display.flip()
 
@@ -121,6 +121,7 @@ class Labyrinthe:
 
     def changing(self):
         "function that catches event"
+        pygame.init()
         #while macgyver has not arrived at the exit we have the loop
         while self.mcgyver[0] != self.victory:
             #initial position of macgyver
@@ -128,7 +129,7 @@ class Labyrinthe:
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == QUIT:
-                	sys.exit()
+                    sys.exit()
                 elif event.type == KEYDOWN:
                     # if the player presses keydown
                     if event.key == K_DOWN:
@@ -144,6 +145,20 @@ class Labyrinthe:
                     # if the player presses the keyright
                     elif event.key == K_RIGHT:
                         new_x, new_y = (position_x + 1), position_y
+                    elif event.key == K_b:
+                        continuer = 1
+                        while continuer:
+                            font = pygame.font.Font(None, 40)
+                            text = font.render(str(self.object_picked_up) + "Press e to quit"
+                            	                  , 1, (255, 255, 255))
+                            textrect = text.get_rect(center=(300, 300))
+                            self.fenetre.blit(text, textrect)
+                            self.draw_laby
+                            pygame.display.flip()
+                            for event in pygame.event.get():
+                                if event.type == KEYDOWN:
+                                    if event.key == K_e:
+                                        continuer = 0
                     # we check if the movement is inside the labyrinth
                     if new_x in range(15) and new_y in range(15):
                         # if it is then we call our method which test the mouvement
@@ -153,11 +168,31 @@ class Labyrinthe:
                     self.draw_laby() # we call up the method to upddate our labyrinthe
         # we check if the player has won or has lost
         if self.ending_game() is True:
-            print("you have won")
+            continuer = 1
+            while continuer:
+                font = pygame.font.Font(None, 30)
+                text = font.render("Congratulations, you have won!Press r to quit", 1,
+                	                  (255, 255, 255))
+                textrect = text.get_rect(center=(300, 300))
+                self.fenetre.blit(text, textrect)
+                pygame.display.flip()
+                for event in pygame.event.get():
+                    if event.type == KEYDOWN:
+                        if event.key == K_r:
+                            continuer = 0
         else:
-            print("you have lost")
-
-
+            continuer = 1
+            while continuer:
+                font = pygame.font.Font(None, 60)
+                text = font.render("you have lost!Press r to quit", 1, (255, 255, 255))
+                textrect = text.get_rect(center=(300, 300))
+                self.fenetre.blit(text, textrect)
+                self.draw_laby
+                pygame.display.flip()
+                for event in pygame.event.get():
+                    if event.type == KEYDOWN:
+                        if event.key == K_r:
+                            continuer = 0
 
     def ending_game(self):
         "function that checks if Mac gyver has won the game or loose the game"
@@ -178,15 +213,14 @@ class Labyrinthe:
         if Position.checking_coordinates(self, new_x, new_y) == "1":
             # we add to the list object 1
             self.object_picked_up.append("object1")
-            print("Great! You found object1")
+
         elif Position.checking_coordinates(self, new_x, new_y) == "2":
             # we add to the list object 2
             self.object_picked_up.append("object2")
-            print("Great! You found object 2")
         elif Position.checking_coordinates(self, new_x, new_y) == "3":
             # we add to the list object 3
             self.object_picked_up.append("object3")
-            print("Great! You found object 3")
+
 
 class Position:
     "classe that checks the mouvement"
@@ -202,14 +236,15 @@ class Position:
         if Position.checking_coordinates(labyrinthe, new_x, new_y) == "m":
             labyrinthe.mcgyver[0] = first_x, first_y
             print("sorry you cant walk through a wall")
-        else:
-            #if the new coordinates are not a wall then we move gyver
-            labyrinthe.moving_gyver(new_x, new_y)
+        elif Position.checking_coordinates(labyrinthe, new_x, new_y) == "1" or "2" or "3":
             labyrinthe.picking_up(new_x, new_y)
-            print(labyrinthe.object_picked_up)
-            #the former gyver position is becoming a free path
+            labyrinthe.moving_gyver(new_x, new_y)
             labyrinthe.laby_area[first_x, first_y] = "0"
-            # we put gyver on our dictionnary
+            labyrinthe.laby_area[new_x, new_y] = "G"
+            labyrinthe.draw_laby()
+        elif Position.checking_coordinates(labyrinthe, new_x, new_y) == "0":
+            labyrinthe.moving_gyver(new_x, new_y)
+            labyrinthe.laby_area[first_x, first_y] = "0"
             labyrinthe.laby_area[new_x, new_y] = "G"
             labyrinthe.draw_laby()
 

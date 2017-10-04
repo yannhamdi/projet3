@@ -153,7 +153,7 @@ class Labyrinthe:
                             	                  , 1, (255, 255, 255))
                             textrect = text.get_rect(center=(300, 300))
                             self.fenetre.blit(text, textrect)
-                            self.draw_laby
+                           
                             pygame.display.flip()
                             for event in pygame.event.get():
                                 if event.type == KEYDOWN:

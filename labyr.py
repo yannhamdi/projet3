@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
-from classes import *
+from Labyrinthe import *
 
 
 def main():

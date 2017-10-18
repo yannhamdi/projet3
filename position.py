@@ -15,7 +15,6 @@ class Position:
         # we check if there is a wall
         if Position.checking_coordinates(labyrinthe, new_x, new_y) == "m":
             labyrinthe.mcgyver[0] = first_x, first_y
-            print("sorry you cant walk through a wall")
         elif Position.checking_coordinates(labyrinthe, new_x, new_y) == "1" or "2" or "3":
             labyrinthe.picking_up(new_x, new_y)
             labyrinthe.moving_gyver(new_x, new_y)

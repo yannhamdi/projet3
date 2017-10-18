@@ -50,7 +50,7 @@ class Labyrinthe:
         # we draw the labyrinthe
         self.draw_laby()
         # we call up the loop to start the game
-        self.changing()
+        self.playing_game()
 
     def draw_laby(self):
         "function that draws the labyrinthe in the console"
@@ -165,8 +165,6 @@ class Labyrinthe:
                     if new_x in range(15) and new_y in range(15):
                         # if it is then we call our method which test the mouvement
                         Position.testing_position(self, position_x, position_y, new_x, new_y)
-                    else:
-                        print("sorry you are out of the layout")
                     self.draw_laby() # we call up the method to upddate our labyrinthe
         # we check if the player has won or has lost
         if self.ending_game() is True:

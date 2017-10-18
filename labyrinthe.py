@@ -121,7 +121,7 @@ class Labyrinthe:
                 self.laby_area[i, j] = str(number_object) # we save our object
                 number_object += 1
 
-    def changing(self):
+    def playing_game(self):
         "function that catches event"
         pygame.init()
         #while macgyver has not arrived at the exit we have the loop

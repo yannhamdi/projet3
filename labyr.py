@@ -8,7 +8,7 @@ def main():
     
     laby = Labyrinthe()
     
-    laby.changing()
+    laby.playing_game()
 
     
 main()

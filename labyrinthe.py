@@ -210,14 +210,14 @@ class Labyrinthe:
 
     def picking_up(self, new_x, new_y):
         "function that picks up objects"
-        if Position.checking_coordinates(self, new_x, new_y) == "1":
+        if self.laby_area[new_x, new_y] == "1":
             # we add to the list object 1
             self.object_picked_up.append("object1")
-
-        elif Position.checking_coordinates(self, new_x, new_y) == "2":
+        #we are checking if there is object 2 at the new_X, new_y coordinates
+        elif self.laby_area[new_x, new_y] == "2":
             # we add to the list object 2
             self.object_picked_up.append("object2")
-        elif Position.checking_coordinates(self, new_x, new_y) == "3":
+        elif self.laby_area[new_x, new_y] == "3":
             # we add to the list object 3
             self.object_picked_up.append("object3")
 

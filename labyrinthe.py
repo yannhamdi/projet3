@@ -72,38 +72,38 @@ class Labyrinthe:
             # for each columns
             for j in range(15):
                 # if we find a wall
-                if Position.checking_coordinates(self, i, j) == "m":
+                if self.laby_area[i, j] == "m":
                     # we save our wall coordinates and multiply by the size of the cases
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture at the appropiated coordinated
                     self.fenetre.blit(self.wall, (location_x, location_y))
                 # if we find object 1
-                elif Position.checking_coordinates(self, i, j) == "1":
+                elif self.laby_area[i, j] == "1":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the object1
                     self.fenetre.blit(self.pic_object1, (location_x, location_y))
                 # if we find a "G" it means we have our macgyver character
-                elif Position.checking_coordinates(self, i, j) == "G":
+                elif self.laby_area[i, j] == "G":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place macgyver picture
                     self.fenetre.blit(self.pic_gyver, (location_x, location_y))
                 #for the object 2
-                elif Position.checking_coordinates(self, i, j) == "2":
+                elif self.laby_area[i, j] == "2":
                     location_x = i * Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     #we place the picture of object 2
                     self.fenetre.blit(self.pic_object2, (location_x, location_y))
                 # this is the exit and where he is located the bad guy
-                elif Position.checking_coordinates(self, i, j) == "E":
+                elif self.laby_area[i, j] == "E":
                     location_x = i* Labyrinthe.WIDTH_CASE
                     location_y = j * Labyrinthe.WIDTH_CASE
                     # we place the picture of the bad guy
                     self.fenetre.blit(self.bad_guy, (location_x, location_y))
                 # object 3
-                elif Position.checking_coordinates(self, i, j) == "3":
+                elif self.laby_area[i, j] == "3":
                     location_x = i* Labyrinthe.WIDTH_CASE
                     location_y = j* Labyrinthe.WIDTH_CASE
                     self.fenetre.blit(self.pic_object3, (location_x, location_y))

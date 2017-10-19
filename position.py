@@ -10,6 +10,7 @@ class Position:
         # we check if there is a wall
         if labyrinthe.laby_area[new_x, new_y] == "m":
             labyrinthe.mcgyver[0] = first_x, first_y
+        # if we have 1, 2 or 3 on the case we launch the method to pickup the object
         elif labyrinthe.laby_area[new_x, new_y] == "1" or "2" or "3":
             labyrinthe.picking_up(new_x, new_y)
             labyrinthe.moving_gyver(new_x, new_y)

@@ -174,11 +174,15 @@ class Labyrinthe:
         if self.ending_game() is True:
             continuer = 1
             while continuer:
-                font = pygame.font.Font(None, 30)
-                text = font.render("Congratulations, you have won!Press r to quit", 1,
-                	                  (255, 255, 255))
+                font = pygame.font.Font(None, 50)
+                text = font.render("Congratulations, You have won!", 1,
+                                           (255, 255, 255))
                 textrect = text.get_rect(center=(300, 300))
+                font_1 = pygame.font.Font(None, 40)
+                text_1 = font_1.render(("Press r to quit"), 1, (165, 38 ,10))
+                textrect_1 = text_1.get_rect(bottomleft=(400, 600))
                 self.fenetre.blit(text, textrect)
+                self.fenetre.blit(text_1, textrect_1)
                 pygame.display.flip()
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
@@ -188,9 +192,13 @@ class Labyrinthe:
             continuer = 1
             while continuer:
                 font = pygame.font.Font(None, 60)
-                text = font.render("you have lost!Press r to quit", 1, (255, 255, 255))
+                text = font.render("Sorry!You have lost!", 1, (255, 255, 255))
                 textrect = text.get_rect(center=(300, 300))
+                font_1 = pygame.font.Font(None, 40)
+                text_1 = font_1.render(("Press r to quit"), 1, (165, 38 ,10))
+                textrect_1 = text_1.get_rect(bottomleft=(400, 600))
                 self.fenetre.blit(text, textrect)
+                self.fenetre.blit(text_1, textrect_1)
                 self.draw_laby
                 pygame.display.flip()
                 for event in pygame.event.get():

@@ -1,9 +1,11 @@
-from labyrinthe import *
+"we create our module position"
 
+
+import labyrinthe
 
 
 class Position:
-    
+    "class that checks coordinates and manages the game"
     @classmethod
     def testing_position(cls, labyrinthe, first_x, first_y, new_x, new_y):
         "function that tests the mouvement"

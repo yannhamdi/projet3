@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 
-"Game where macgyver must collect 3 objects before find the exit"
+"Game where macgyver must collect 3 objects before he finds the exit"
 
 import random
 

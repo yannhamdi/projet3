@@ -55,7 +55,7 @@ class Labyrinthe:
         self.playing_game()
 
     def draw_laby(self):
-        "function that draws the labyrinthe in the console"
+        "function that draws the labyrinthe using the module pygame"
         # we create the labyrinthe frame
         self.fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE,
                                                 Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE))

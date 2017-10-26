@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 
-"Game where macgyver must collect 3 objects before he finds the exit"
+"Game where macgyver must collect 3 objects before find the exit"
 
 import random
 
@@ -9,6 +9,7 @@ import sys
 
 import pygame
 from pygame.locals import *
+
 
 
 from position import *
@@ -54,7 +55,7 @@ class Labyrinthe:
         self.playing_game()
 
     def draw_laby(self):
-        "function that draws the labyrinthe using the module pygame"
+        "function that draws the labyrinthe in the console"
         # we create the labyrinthe frame
         self.fenetre = pygame.display.set_mode((Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE,
                                                 Labyrinthe.WIDTH_CASE * Labyrinthe.SPRITE))
@@ -153,7 +154,7 @@ class Labyrinthe:
                         while continuer:
                             font = pygame.font.Font(None, 40)
                             text = font.render(str(self.object_picked_up)
-                            	                  , 1, (255, 255, 255))
+                                                  , 1, (255, 255, 255))
                             font_1 = pygame.font.Font(None, 40)
                             text_1 = font_1.render(("Press e to quit"), 1, (165, 38, 10))
                             textrect = text.get_rect(center=(300, 300))

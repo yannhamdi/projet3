@@ -3,6 +3,7 @@
 from labyrinthe import *
 
 
+
 def main():
     
     

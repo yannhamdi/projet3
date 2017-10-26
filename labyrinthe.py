@@ -154,7 +154,7 @@ class Labyrinthe:
                         while continuer:
                             font = pygame.font.Font(None, 40)
                             text = font.render(str(self.object_picked_up)
-                                                  , 1, (255, 255, 255))
+                                               , 1, (255, 255, 255))
                             font_1 = pygame.font.Font(None, 40)
                             text_1 = font_1.render(("Press e to quit"), 1, (165, 38, 10))
                             textrect = text.get_rect(center=(300, 300))
@@ -162,9 +162,9 @@ class Labyrinthe:
                             self.fenetre.blit(text, textrect)
                             self.fenetre.blit(text_1, textrect_1)
                             pygame.display.flip()
-                            for event in pygame.event.get():
-                                if event.type == KEYDOWN:
-                                    if event.key == K_e:
+                            for event_1 in pygame.event.get():
+                                if event_1.type == KEYDOWN:
+                                    if event_1.key == K_e:
                                         continuer = 0
                     # we check if the movement is inside the labyrinth
                     if new_x in range(15) and new_y in range(15):
@@ -200,7 +200,7 @@ class Labyrinthe:
                 textrect_1 = text_1.get_rect(bottomleft=(400, 600))
                 self.fenetre.blit(text, textrect)
                 self.fenetre.blit(text_1, textrect_1)
-                self.draw_laby
+                self.draw_laby()
                 pygame.display.flip()
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:

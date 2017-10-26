@@ -1,6 +1,4 @@
 "we create our module position"
-
-
 import labyrinthe
 
 

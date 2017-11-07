@@ -30,23 +30,20 @@ class Labyrinthe:
         j = 0
         # we open our labyrinthe file
         with open("laby.txt", 'r') as file_laby:
-            for line in file_laby:# for each line
-                for i in range(len(line)):
-                    if line[i] == "m":
+            for i, line in enumerate(file_laby):# for each line
+                if line[i] == "m":
                         # we create our dictionnary including coordinates of the wall
-                        self.laby_area[i, j] = "m"
-                    elif line[i] == "0":
-                        self.laby_area[i, j] = "0" # we have our coordinates of our pathway
-                    elif line[i] == "E":
-                        self.laby_area[i, j] = "E" # we have our coordinates'wayout
-                        self.victory = (i, j)
-                    elif line[i] == "G":
-                        self.laby_area[i, j] = "G"
-
-                        gyver = (i, j)
-                        self.mcgyver.append(gyver)
-
-                j += 1
+                    self.laby_area[i, j] = "m"
+                elif line[i] == "0":
+                    self.laby_area[i, j] = "0" # we have our coordinates of our pathway
+                elif line[i] == "E":
+                    self.laby_area[i, j] = "E" # we have our coordinates'wayout
+                    self.victory = (i, j)
+                elif line[i] == "G":
+                    self.laby_area[i, j] = "G"
+                    gyver = (i, j)
+                    self.mcgyver.append(gyver)
+            j += 1
         # we call up our method placing object to place the 3 objects
         self.placing_object()
         # we draw the labyrinthe

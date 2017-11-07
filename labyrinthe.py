@@ -32,7 +32,7 @@ class Labyrinthe:
         with open("laby.txt", 'r') as file_laby:
             for i, line in enumerate(file_laby):# we go through the file
                 if line[i] == "m":
-                        # we create our dictionnary including coordinates of the wall
+                    # we create our dictionnary including coordinates of the wall
                     self.laby_area[i, j] = "m"
                 elif line[i] == "0":
                     self.laby_area[i, j] = "0" # we have our coordinates of our pathway
@@ -115,19 +115,21 @@ class Labyrinthe:
         while number_object <= 3:
             #we pick up a random number between 0 and 14 in order to pick up a random column
             i = random.randint(0, 14)
-            j = random.randint(0, 14)   # random line
+            #random line
+            j = random.randint(0, 14) 
             if self.laby_area[i, j] == "0":   # if the coordinate picked up is free
                 self.laby_area[i, j] = str(number_object) # we save our object
                 number_object += 1
 
     def playing_game(self):
-        "function that catches event"
+        "function that catches event as the main loop"
         pygame.init()
         #while macgyver has not arrived at the exit we have the loop
         while self.mcgyver[0] != self.victory:
             #initial position of macgyver
             position_x, position_y = self.mcgyver[0]
             pygame.time.Clock().tick(30)
+            #we capture events with a pygame module
             for event in pygame.event.get():
                 if event.type == QUIT:
                     sys.exit()

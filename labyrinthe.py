@@ -31,7 +31,7 @@ class Labyrinthe:
         # we open our labyrinthe file
         with open("laby.txt", 'r') as file_laby:
             #for each line
-            for line in file_laby: 
+            for line in file_laby:
                 for i in range(len(line)):# we go through each line
                     if line[i] == "m":
                     # we create our dictionnary including coordinates of the wall

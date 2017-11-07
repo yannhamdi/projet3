@@ -30,7 +30,7 @@ class Labyrinthe:
         j = 0
         # we open our labyrinthe file
         with open("laby.txt", 'r') as file_laby:
-            for i, line in enumerate(file_laby):# for each line
+            for i, line in enumerate(file_laby):# we go through the file
                 if line[i] == "m":
                         # we create our dictionnary including coordinates of the wall
                     self.laby_area[i, j] = "m"
@@ -43,7 +43,7 @@ class Labyrinthe:
                     self.laby_area[i, j] = "G"
                     gyver = (i, j)
                     self.mcgyver.append(gyver)
-            j += 1
+                j += 1
         # we call up our method placing object to place the 3 objects
         self.placing_object()
         # we draw the labyrinthe
